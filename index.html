@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAIZO 1期目予算計画 v12.2.11 — 予算オープン化リライト（還元×成長投資の両輪でミッションへ）2026-05-04 01:12更新</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{font-family:'Noto Sans JP',-apple-system,sans-serif;color:#0a0a0a;background:#fff;font-size:14px;line-height:1.75;letter-spacing:.01em}
+  .container{max-width:1480px;margin:0 auto;padding:64px 48px 100px}
+  .meta{display:flex;justify-content:space-between;border-bottom:1px solid #0a0a0a;padding-bottom:12px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:48px}
+  .title-block{margin-bottom:40px}
+  .eyebrow{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.3em;color:#555;text-transform:uppercase;margin-bottom:16px}
+  .headline{font-family:'Noto Sans JP',sans-serif;font-weight:900;font-size:44px;letter-spacing:-.02em;line-height:1.2;margin-bottom:12px}
+  .sub-title{font-size:15px;color:#555;font-weight:500}
+  .section{margin-bottom:64px}
+  .section-num{font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.3em;color:#555}
+  .section-title{font-family:'Noto Sans JP',sans-serif;font-weight:900;font-size:28px;letter-spacing:-.01em;line-height:1.3;margin-top:6px}
+  .section-sub{font-family:'Inter',sans-serif;font-weight:400;font-size:12px;letter-spacing:.08em;color:#555;margin-bottom:24px;text-transform:uppercase}
+  .section-hr{border:0;border-top:1px solid #0a0a0a;margin:16px 0 28px}
+
+  .preset-bar{display:flex;gap:10px;margin-bottom:24px;align-items:center;flex-wrap:wrap}
+  .preset-label{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.25em;color:#555;text-transform:uppercase;margin-right:8px}
+  .btn{font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.15em;text-transform:uppercase;padding:10px 18px;border:1px solid #0a0a0a;background:#fff;color:#0a0a0a;cursor:pointer;transition:all .15s}
+  .btn:hover{background:#0a0a0a;color:#fff}
+  .btn.active{background:#0a0a0a;color:#fff}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:24px 0}
+  .panel{border:1px solid #0a0a0a;padding:28px 28px;overflow-x:auto}
+  .panel-label{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:#555;margin-bottom:4px}
+  .panel-title{font-family:'Noto Sans JP',sans-serif;font-weight:900;font-size:20px;margin-bottom:6px}
+  .panel-hint{font-size:12px;color:#888;margin-bottom:16px}
+
+  table.inputs{width:100%;border-collapse:collapse;font-size:13px}
+  table.inputs th,table.inputs td{text-align:left;padding:8px 10px;border-bottom:1px solid #e5e5e5}
+  table.inputs thead th{border-top:1px solid #0a0a0a;border-bottom:1px solid #0a0a0a;font-family:'Inter',sans-serif;font-weight:700;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#333}
+  table.inputs td.num{text-align:right;font-family:'Inter',sans-serif;font-weight:700}
+  table.inputs td.unit{color:#888;font-size:12px}
+  .sub-header{background:#f7f7f7;font-family:'Inter',sans-serif;font-weight:700;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#333}
+  .sub-header td{padding:8px 10px}
+  input[type=number]{width:90px;padding:6px 8px;border:1px solid #0a0a0a;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;text-align:right;background:#fff;outline:none}
+  input[type=number]:focus{background:#fffbea}
+  input[type=number]:disabled{background:#f0f0f0;color:#555}
+
+  /* Monthly matrix compact style */
+  table.monthly{width:100%;border-collapse:collapse;font-size:12px}
+  table.monthly th,table.monthly td{padding:6px 6px;border-bottom:1px solid #e5e5e5;text-align:center;vertical-align:middle}
+  table.monthly th.service{text-align:left;min-width:140px;font-family:'Noto Sans JP',sans-serif;font-size:12px;font-weight:700}
+  table.monthly th{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#333;border-top:1px solid #0a0a0a;border-bottom:1px solid #0a0a0a;font-weight:700;padding:6px 4px}
+  table.monthly td.service{text-align:left;font-weight:700}
+  table.monthly input[type=number]{width:52px;padding:4px 4px;font-size:12px;text-align:right}
+  table.monthly td.annual{text-align:right;font-family:'Inter',sans-serif;font-weight:700;min-width:70px;border-left:1px solid #0a0a0a;background:#fafafa}
+  table.monthly th.annual{border-left:1px solid #0a0a0a;background:#f0f0f0}
+  table.monthly .section-row td{background:#f0f0f0;font-family:'Inter',sans-serif;font-weight:700;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#333;text-align:left;padding:8px 10px}
+  table.monthly .total-row td{background:#0a0a0a;color:#fff;font-weight:700;border-top:1px solid #0a0a0a;border-bottom:1px solid #0a0a0a}
+  table.monthly .unit-cell{font-size:10px;color:#888;font-weight:400}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:24px 0}
+  .kpi{border:1px solid #0a0a0a;padding:18px 18px;transition:box-shadow .2s}
+  .kpi.flash{box-shadow:0 0 0 4px #fffbea inset}
+  .kpi.featured{background:#0a0a0a;color:#fff}
+  .kpi-label{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.2em;color:#555;font-weight:700;text-transform:uppercase;margin-bottom:6px}
+  .kpi.featured .kpi-label{color:#bbb}
+  .kpi-value{font-family:'Inter',sans-serif;font-weight:900;font-size:26px;letter-spacing:-.02em;line-height:1;margin-bottom:4px}
+  .kpi-note{font-size:11px;color:#666}
+  .kpi.featured .kpi-note{color:#bbb}
+  .kpi-value.neg{color:#c62828}
+  .kpi-value.pos{color:#2e7d32}
+
+  .phase-section{margin-bottom:20px}
+  .phase-title{font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:8px;color:#0a0a0a}
+  .phase-title .months{color:#888;font-weight:400}
+
+  .callout{border:1px solid #0a0a0a;padding:20px 24px;margin:20px 0;font-size:13px}
+  .callout.warn{background:#fffbea;border:1px dashed #0a0a0a}
+  .callout.dark{background:#0a0a0a;color:#fff}
+  .footer{margin-top:56px;padding-top:20px;border-top:1px solid #0a0a0a;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.15em;color:#555;text-transform:uppercase;display:flex;justify-content:space-between}
+  ul,ol{padding-left:20px;margin:12px 0 18px}
+  li{margin-bottom:6px;font-size:13px}
+
+  @media (max-width:1200px){.grid-2{grid-template-columns:1fr}.kpi-grid{grid-template-columns:1fr 1fr}.headline{font-size:32px}}
+
+  /* Review block */
+  .review{margin-top:22px;border:1px dashed #0a0a0a;padding:16px 18px;background:#fafafa}
+  .review-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .review-label{font-family:'Inter',sans-serif;font-weight:700;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#555}
+  .verdict-btn{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border:1px solid #0a0a0a;background:#fff;color:#0a0a0a;cursor:pointer;transition:all .15s}
+  .verdict-btn:hover{background:#0a0a0a;color:#fff}
+  .verdict-btn.active[data-verdict="ok"]{background:#1b5e20;border-color:#1b5e20;color:#fff}
+  .verdict-btn.active[data-verdict="fix"]{background:#e65100;border-color:#e65100;color:#fff}
+  .verdict-btn.active[data-verdict="ng"]{background:#b71c1c;border-color:#b71c1c;color:#fff}
+  .review textarea{width:100%;min-height:60px;padding:10px 12px;border:1px solid #0a0a0a;font-family:'Noto Sans JP',sans-serif;font-size:13px;line-height:1.7;resize:vertical;outline:none;background:#fff}
+  .review textarea:focus{background:#fffbea}
+  .review-state{margin-left:auto;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.15em;color:#888}
+
+  .review-bar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #0a0a0a;padding:12px 0;margin:-12px 0 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .review-bar .rb-btn{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:8px 14px;border:1px solid #0a0a0a;background:#fff;color:#0a0a0a;cursor:pointer}
+  .review-bar .rb-btn:hover{background:#0a0a0a;color:#fff}
+  .review-bar .rb-btn.primary{background:#0a0a0a;color:#fff}
+  .review-bar .rb-btn.primary:hover{background:#fff;color:#0a0a0a}
+  .review-bar .rb-count{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.1em;color:#555}
+
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+  .modal-bg.show{display:flex}
+  .modal{background:#fff;max-width:900px;width:100%;border:1px solid #0a0a0a;padding:32px;position:relative}
+  .modal h3{font-family:'Noto Sans JP',sans-serif;font-weight:900;font-size:20px;margin-bottom:12px}
+  .modal textarea{width:100%;min-height:380px;padding:14px;border:1px solid #0a0a0a;font-family:'Inter',Consolas,monospace;font-size:12px;line-height:1.6;resize:vertical}
+  .modal-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .modal-actions .rb-btn{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:10px 16px;border:1px solid #0a0a0a;background:#fff;color:#0a0a0a;cursor:pointer}
+  .modal-actions .rb-btn:hover{background:#0a0a0a;color:#fff}
+  .modal-actions .rb-btn.primary{background:#0a0a0a;color:#fff}
+  .modal-actions .rb-btn.primary:hover{background:#fff;color:#0a0a0a}
+
+  /* v12.2.8: 思想メッセージブロック・最重点指標KPI・月次PL */
+  .philosophy-block{background:#0a0a0a;color:#fff;padding:44px 40px;margin:32px 0 36px;border:2px solid #0a0a0a}
+  .philosophy-eyebrow{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.3em;color:#888;text-transform:uppercase;margin-bottom:18px}
+  .philosophy-headline{font-family:'Noto Sans JP',sans-serif;font-weight:900;font-size:36px;letter-spacing:-.02em;line-height:1.35;margin-bottom:22px;color:#fff}
+  .philosophy-body{font-size:14px;line-height:1.85;margin-bottom:26px;color:#ddd}
+  .philosophy-body strong{color:#fff;font-weight:700}
+  .philosophy-key{border-top:1px solid #444;padding-top:22px;font-size:16px;font-weight:700;color:#fff}
+  .philosophy-key .philosophy-sub{display:block;margin-top:8px;font-size:12px;font-weight:400;color:#aaa;line-height:1.7}
+
+  .kpi-ultra-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+  .kpi-ultra{background:#fffbea;border:3px solid #0a0a0a;padding:30px 26px}
+  .kpi-ultra-label{font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.15em;color:#555;text-transform:uppercase;margin-bottom:14px}
+  .kpi-ultra-value{font-family:'Noto Sans JP',sans-serif;font-weight:900;font-size:48px;letter-spacing:-.02em;line-height:1.1;margin-bottom:12px;color:#0a0a0a}
+  .kpi-ultra-value.pos{color:#1a7c2c}
+  .kpi-ultra-value.neg{color:#b80000}
+  .kpi-ultra-note{font-size:11px;color:#777;line-height:1.6}
+
+  .num.pos{color:#1a7c2c;font-weight:700}
+  .num.neg{color:#b80000;font-weight:700}
+
+  /* v12.2.9: 思想ブロック内の階層構造（ミッション→バリュー→実行原則→予算思想） */
+  .philosophy-section{margin-top:30px;padding-top:24px;border-top:1px solid #444}
+  .philosophy-section-title{font-family:'Inter',sans-serif;font-weight:700;font-size:11px;letter-spacing:.3em;color:#888;text-transform:uppercase;margin-bottom:16px}
+  .philosophy-values{list-style:none;padding:0;margin:0}
+  .philosophy-values li{padding:10px 0;color:#ddd;font-size:14px;line-height:1.7;border-bottom:1px solid #222;display:flex;gap:14px;align-items:baseline}
+  .philosophy-values li:last-child{border-bottom:0}
+  .philosophy-values li .v-num{font-family:'Inter',sans-serif;font-weight:900;font-size:16px;color:#888;min-width:24px}
+  .philosophy-values li .v-name{color:#fff;font-weight:700;min-width:96px}
+  .philosophy-values li .v-body{color:#ccc;flex:1}
+  .philosophy-execution{font-size:20px;font-weight:900;color:#fff;letter-spacing:.02em;font-family:'Noto Sans JP',sans-serif}
+  .philosophy-execution-sub{display:block;margin-top:10px;font-size:12px;font-weight:400;color:#aaa;line-height:1.7}
+</style>
+</head>
+<body>
+<!-- v12.2.11: パスワード認証（関係者向け簡易ガード・vaizo2026） -->
+<script>
+(function(){
+  var CORRECT_PIN = 'vaizo2026';
+  var STORAGE_KEY = 'vaizo_v12_2_11_auth';
+  if(sessionStorage.getItem(STORAGE_KEY) === 'authenticated') return;
+  function checkPin(){
+    var pin = prompt('VAIZO 1期目予算 v12.2.11（関係者向け）\\n閲覧パスワードを入力してください:');
+    if(pin === null){
+      document.body.innerHTML = '<div style="padding:80px 40px;font-family:Inter,Noto Sans JP,sans-serif;text-align:center;color:#888;background:#0a0a0a;min-height:100vh;"><h1 style="color:#fff;font-size:18px;margin-bottom:16px;letter-spacing:.05em;">VAIZO 1期目予算 v12.2.11</h1><p style="font-size:13px;line-height:1.8;">認証がキャンセルされました。<br>ページを再読み込みすると、もう一度パスワードを入力できます。</p></div>';
+      return false;
+    }
+    if(pin === CORRECT_PIN){
+      sessionStorage.setItem(STORAGE_KEY, 'authenticated');
+      return true;
+    }
+    alert('パスワードが違います。再度入力してください。');
+    return checkPin();
+  }
+  if(!checkPin()){
+    document.body.style.display = 'none';
+  }
+})();
+</script>
+<div class="container">
+
+<div class="meta">
+  <span>VAIZO CONFIDENTIAL</span>
+  <span>2026.04.23</span>
+  <span>1ST YEAR BUDGET v11 · 解約率＆UE反映</span>
+</div>
+
+<div class="title-block">
+  <div class="eyebrow">VAIZO 株式会社 · 1期目予算モデル v12.2.8 ｜ 思想メッセージ＋売上−人件費＋月次PL（2026-05-03 16:51更新）</div>
+  <h1 class="headline">V/ENTERから始まり、<br>V/AIBOUへ深化する。</h1>
+  <p class="sub-title">
+    期首キャッシュ1,250万（資本金625万＋借入625万） ｜ V/ENTER 月4件＝すべての源泉 ｜ 固定費（システム）と変動費（営業経費・アルバイト）を分離 ｜ ベンチャー予実管理ベストプラクティス2026反映
+  </p>
+</div>
+
+<!-- v12.2.10: 思想ブロック（最上位・常時表示・全VAIZER向け）-->
+<!-- 構造：①ミッション → ②バリュー5項目 → ③予算オープン化の思想（実行原則は除外） -->
+<div class="philosophy-block">
+
+  <!-- ① ミッション（最上位・最大表示） -->
+  <div class="philosophy-eyebrow">VAIZO ミッション</div>
+  <h2 class="philosophy-headline">生存のためのシゴトから人類を解放し、<br>みんながスキに没頭できる世界をつくる。</h2>
+
+  <!-- ② バリュー5項目（不変の行動原則・原文ママ） -->
+  <div class="philosophy-section">
+    <div class="philosophy-section-title">VAIZO の不変の行動原則（バリュー）</div>
+    <ol class="philosophy-values">
+      <li><span class="v-num">1</span><span class="v-name">本質探求</span><span class="v-body">物事を掘り下げて考え、真摯に向き合う。</span></li>
+      <li><span class="v-num">2</span><span class="v-name">逆算思考</span><span class="v-body">シンプルでスムーズなルートで目標を達成する。</span></li>
+      <li><span class="v-num">3</span><span class="v-name">相互納得</span><span class="v-body">本音を聞き、相互理解に基づいたWin-Winを達成する。</span></li>
+      <li><span class="v-num">4</span><span class="v-name">知行合一</span><span class="v-body">よく学び、よく行動する。</span></li>
+      <li><span class="v-num">5</span><span class="v-name">心身充実</span><span class="v-body">持続可能性を重んじ、身体と精神の健康を最優先する。</span></li>
+    </ol>
+  </div>
+
+  <!-- ③ 予算オープン化の理由（v12.2.11リライト：還元×成長投資の両輪でミッションへ） -->
+  <div class="philosophy-section">
+    <div class="philosophy-section-title">この予算をオープンにする理由</div>
+    <p class="philosophy-execution">VAIZOの利益は、VAIZERへの還元と、VAIZOの成長投資の両輪で、ミッションを世界に届けるために使う。
+      <span class="philosophy-execution-sub">
+        売上から人件費・運営費・借入返済を引いた残りが <strong style="color:#fff;">「VAIZOの利益」</strong>。その利益は、2つに使う。<br><br>
+        <strong style="color:#fff;">① VAIZER への還元</strong> ── 業績連動賞与、昇給、福利厚生の原資。価値を生んだ仲間に、ちゃんと還す。<br>
+        <strong style="color:#fff;">② VAIZO の成長投資</strong> ── 採用、技術、新規事業、マーケティング。1期の売上が、次期の10倍になるための種をまく。<br><br>
+        なぜ両輪か。<strong style="color:#fff;">「生存のためのシゴトから人類を解放し、みんながスキに没頭できる世界をつくる」</strong>── このミッションは、年商数千万のVAIZOでは届かない。<strong style="color:#fff;">10億・100億・1000億</strong>のスケールに到達して初めて、世界にインパクトを与えられる。だから利益は、VAIZER に還しつつ、未来のVAIZOにも投じる。<br><br>
+        だから予算は隠さない。「売上 − 人件費」がいくらプラスになっているか、それが誰の貢献で動いたか、そしてそれがVAIZERにどう還り、VAIZOの何に投じられるか ── 全員が見える状態にあって初めて、<strong style="color:#fff;">頑張りと還元と成長が一致する</strong>。
+      </span>
+    </p>
+  </div>
+
+</div>
+
+<!-- レビューツールバー -->
+<div class="review-bar">
+  <span class="review-label">REVIEW</span>
+  <button class="rb-btn primary" id="btn-rv-export">レビューをまとめて表示</button>
+  <button class="rb-btn" id="btn-rv-clear">レビュー全消去</button>
+  <span class="rb-count" id="rv-count">— / — セクション入力済</span>
+</div>
+
+<!-- 全体コメント -->
+<div class="review" data-section="overall" data-title="全体コメント">
+  <div class="review-head">
+    <span class="review-label">Overall Review</span>
+    <button class="verdict-btn" data-verdict="ok">OK</button>
+    <button class="verdict-btn" data-verdict="fix">要修正</button>
+    <button class="verdict-btn" data-verdict="ng">NG</button>
+    <span class="review-state"></span>
+  </div>
+  <textarea placeholder="全体通じての所感・修正指示など…">v12.2.4 = v12.2.3 + V/AIBOU Coach 月15万 新サービス追加（2026-05-03 16:15更新）
+
+【v12.2.3 → v12.2.4 変更】
+・新サービス coach（V/AIBOU Coach）追加：月15万・週90分・1-3名対応
+・形式：30分グループセミナー（複数顧客合同）+60分自社ワークショップ
+・標準カリキュラム（マスタープレイブック方式・年12テーマ）
+・base想定：plan_flatアタッチ率30% → 期末6社×15万＝90万MRR・年間約540万売上
+・worst：期末2社×15＝30万MRR
+・best：期末31社×15＝465万MRR
+・ARR インパクト：base +1,080万（4,776→5,856万）・best +5,580万（巨大なレバレッジ）
+・直接コスト：CTO+staff1既存リソースで吸収（追加人件費なし・コンテンツはClaude生成で工数1/3化）
+・粗利率約74%（4社契約時）→90%（10社以上）
+
+【ベンチャー流の単一プラン採用】
+3階層（Lite/Standard/Pro）はオペレーション複雑化・コンテンツ作成負荷重 → 単一プラン15万に集約
+
+【コンテンツ作成負荷の解決策】
+1. マスタープレイブック方式：月1テーマ×12=年12テーマで1年分
+2. 同時開催：複数顧客の担当者を集めて1セッション
+3. 録画+ライブハイブリッド：コアコンテンツは録画
+4. Claude自動生成：スクリプト・スライド・FAQ をClaude生成
+→ CTOの月稼働の10-15%で運用可能
+
+【V/AIBOU料金 v9 → v10 移行】
+v10にCoach追加：1名3万・無制限5万・Coach 15万・エンプラ25万〜・独自50万〜
+
+
+─────────────────────────
+（以下v12.2過去の議論履歴）
+v12.2 = v12.1 + V/ENTER最上位×固定変動費分離×SaaS KPI ベストプラクティス反映（2026-05-03）
+
+【v12.1 → v12.2 主要変更】
+・売上構造を V/ENTER最上位（すべての源泉）に再構成：L0 V/ENTER → L1-L4 V/AIBOU → L5 アドオン → 他事業
+・経費を「固定費（システム・契約ベース）」と「変動費（営業経費・売上連動）」に明確分離
+・人件費も cost_type で分離：固定（CEO/CTO/BO・社員給与）／変動（櫻井みどり・小野寺・業務委託）
+・新セクション07「SaaS KPI（ベストプラクティス2026）」を追加：
+  - 年間固定費／変動費／変動費比率
+  - Gross Margin（75%以上が健全帯）
+  - 月次バーン／Runway（12ヶ月以上）
+  - Rule of 40（成長率+営業利益率≥40・早期は<40許容）
+  - Burn Multiple（≤1.5が優秀・早期1.5-3.4許容）
+  - Magic Number（0.7以上）
+  - NRR（106%以上が健全帯・top 120%）
+
+【数字（v12.1 base 継承）】
+・V/ENTER 月4件×30万 + 累計保守3万 → 月120万＋約123万MRR
+・V/AIBOU plan_single 15社/plan_flat 20社/plan_ent 標準2社/独自2社
+・期末MRR ≈ 448万・ARR ≈ 5,376万・通期収支 約+200万
+・OneBe控除 ▲360万/年（関与率50%×新規売上50%支払）
+
+【ベストプラクティス出典（2026）】
+SaaS Capital / The SaaS CFO / Wall Street Prep / Bookman Capital / Phoenix Strategy Group ほか
+
+【判断必要】
+□ V/ENTER最上位の売上構造：L0→L5 のファネル進化で V/AIBOU クロスセル率は何%想定か
+□ 固定費（社員給与＋システム）の最低キャッシュライン：worst発動でも維持
+□ 変動費比率：base想定で何%？業界標準20-35%との比較
+□ Rule of 40 / Burn Multiple / Runway を月次レビュー指標として採用するか
+□ Magic Number / NRR の月次トラッキング体制（OPS_Sheet SALES連動？）
+
+【既走補助金（宮城県スタートアップ加速化・5/3提出予定）】
+v8料金体系のまま提出継続。書類書き換えなし。
+
+【次アクション】
+1. 5月＝仕込み期（体制構築・パイプライン構築・営業リスト準備）
+2. 6月＝テコ入れ開始（V/ENTERデモ送付300件・spot提案・plan_ent商談）
+3. 7月以降＝レバレッジ加速（営業利益率改善・Phase 1.5検討）
+4. v12.2 HTMLを月次レビュー指標として運用（実績入力で都度確認）</textarea>
+</div>
+
+<!-- プリセット -->
+<div class="preset-bar">
+  <span class="preset-label">Preset</span>
+  <button class="btn" data-preset="worst">最悪ケース</button>
+  <button class="btn active" data-preset="base">基準ケース</button>
+  <button class="btn" data-preset="best">計画通り</button>
+  <button class="btn" data-preset="custom" style="opacity:.7;" id="custom-label">Custom</button>
+  <button class="btn" id="btn-export-values" style="background:#fffbea;">現在値をJSONで出力</button>
+  <span style="flex:1;"></span>
+  <span id="last-update" style="font-size:11px;color:#888;font-family:'Inter',sans-serif;letter-spacing:.1em;"></span>
+</div>
+
+<!-- Export Values Modal -->
+<div id="val-modal-bg" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto">
+  <div style="background:#fff;max-width:900px;width:100%;border:1px solid #0a0a0a;padding:32px;">
+    <h3 style="font-family:'Noto Sans JP',sans-serif;font-weight:900;font-size:20px;margin-bottom:12px;">現在の入力値</h3>
+    <p style="font-size:12px;color:#555;margin-bottom:10px;">コピーして貼り付けてください。この内容をbaseプリセットに焼き直します。</p>
+    <textarea id="val-modal-text" readonly style="width:100%;min-height:400px;padding:14px;border:1px solid #0a0a0a;font-family:Consolas,monospace;font-size:11px;line-height:1.55;"></textarea>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
+      <button class="btn" id="val-modal-copy" style="background:#0a0a0a;color:#fff;">クリップボードへコピー</button>
+      <button class="btn" id="val-modal-close">閉じる</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- v12.2.8: ★最重点指標 売上−人件費（Ultra-Featured） -->
+<div class="kpi-ultra-grid">
+  <div class="kpi-ultra">
+    <div class="kpi-ultra-label">★ 月次「売上 − 人件費」（最重点）</div>
+    <div class="kpi-ultra-value" id="r-monthly-rev-minus-hc">—</div>
+    <div class="kpi-ultra-note">毎月ここがプラスかをチェック・他費用は月20万以下なので、ここが赤字なら全体が赤字</div>
+  </div>
+  <div class="kpi-ultra">
+    <div class="kpi-ultra-label">★ 通期「売上 − 人件費」</div>
+    <div class="kpi-ultra-value" id="r-annual-rev-minus-hc">—</div>
+    <div class="kpi-ultra-note">通期で人件費を上回る売上を作れているか／頑張った成果が利益として残るか</div>
+  </div>
+</div>
+
+<!-- KPI 結果 -->
+<div class="kpi-grid">
+  <div class="kpi featured">
+    <div class="kpi-label">期末 月次売上</div>
+    <div class="kpi-value" id="r-monthly-end">—</div>
+    <div class="kpi-note" id="r-monthly-end-note">—</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">期末 ARR</div>
+    <div class="kpi-value" id="r-arr">—</div>
+    <div class="kpi-note">期末MRR × 12</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">通期売上</div>
+    <div class="kpi-value" id="r-annual-rev">—</div>
+    <div class="kpi-note">月次合計</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">通期コスト</div>
+    <div class="kpi-value" id="r-annual-cost">—</div>
+    <div class="kpi-note">人件費＋API＋諸経費</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">通期収支</div>
+    <div class="kpi-value" id="r-annual-pl">—</div>
+    <div class="kpi-note" id="r-annual-pl-note">—</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">期末キャッシュ</div>
+    <div class="kpi-value" id="r-end-cash">—</div>
+    <div class="kpi-note">初期1,250万＋通期収支</div>
+  </div>
+</div>
+
+
+<!-- 売上目標（月次） -->
+<section class="section">
+  <div class="section-num">01</div>
+  <h2 class="section-title">売上目標（月次）</h2>
+  <div class="section-sub">Monthly Revenue Targets</div>
+  <hr class="section-hr">
+
+  <div class="panel">
+    <div class="panel-label">Revenue Inputs (月次)</div>
+    <h3 class="panel-title">月別の契約数・件数を入力</h3>
+    <p class="panel-hint">月額サブスクは期末時点の契約数（解約込み実数）、アドオンは月次件数、V/ENTERは<strong>月次新規件数</strong>、他事業は月次売上（万円）を入力してください。V/ENTERは新規×30万（単発）＋累計保守客×3万（保守＋任意ロール1つのセット月額）を自動加算し、チャーン率（解約率）も加味します。</p>
+
+    <table class="monthly">
+      <thead>
+        <tr>
+          <th class="service">サービス<br><span class="unit-cell">単価</span></th>
+          <th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>9月</th>
+          <th>10月</th><th>11月</th><th>12月</th><th>1月</th><th>2月</th><th>3月</th>
+          <th class="annual">通期</th>
+        </tr>
+      </thead>
+      <tbody id="rev-matrix"></tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- 組織体制 × 経費 -->
+<section class="section">
+  <div class="section-num">02</div>
+  <h2 class="section-title">組織体制・経費</h2>
+  <div class="section-sub">Organization &amp; Expenses</div>
+  <hr class="section-hr">
+
+  <div class="grid-2">
+
+    <!-- 組織体制 -->
+    <div class="panel">
+      <div class="panel-label">Organization</div>
+      <h3 class="panel-title">組織体制（Phase別）</h3>
+
+      <div class="phase-section">
+        <div class="phase-title">Phase 1 <span class="months">（4〜9月・6ヶ月）</span></div>
+        <table class="inputs">
+          <thead>
+            <tr><th>役職</th><th style="text-align:right;">人数</th><th style="text-align:right;">年収（万円）</th><th style="text-align:right;">半期コスト</th></tr>
+          </thead>
+          <tbody id="phase1-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="phase-section">
+        <div class="phase-title">Phase 2 <span class="months">（10〜3月・6ヶ月）</span></div>
+        <table class="inputs">
+          <thead>
+            <tr><th>役職</th><th style="text-align:right;">人数</th><th style="text-align:right;">年収（万円）</th><th style="text-align:right;">半期コスト</th></tr>
+          </thead>
+          <tbody id="phase2-tbody"></tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="phase-title">比率系・変動コスト</div>
+        <table class="inputs">
+          <tbody>
+            <tr>
+              <td>API原価率（MRRに対する比率）</td>
+              <td class="num"><input type="number" id="i-api-cost-pct" value="35" min="0" max="100" step="1"> %</td>
+              <td class="num unit">v12.2.3: CSコンテンツ薄実態で35%（base）／粗利50%ルール上限50%維持</td>
+            </tr>
+            <tr>
+              <td>社会保険料率（社員給与に対して）</td>
+              <td class="num"><input type="number" id="i-social-pct" value="15" min="0" max="30" step="0.5"> %</td>
+              <td class="num unit">※業務委託は対象外</td>
+            </tr>
+            <tr>
+              <td>Unsee紹介フィー率</td>
+              <td class="num"><input type="number" id="i-unsee-pct" value="0" min="0" max="100" step="0.5"> %</td>
+              <td class="num unit">MRRに対して</td>
+            </tr>
+            <tr>
+              <td>OneBe レベニューシェア（V/ENTER関与率）</td>
+              <td class="num"><input type="number" id="i-onebe-pct" value="50" min="0" max="100" step="5"> %</td>
+              <td class="num unit">関与案件×新規売上の50%支払（年間V/ENTER新規 × 関与率 × 50%）</td>
+            </tr>
+            <tr>
+              <td>借入返済（年間）</td>
+              <td class="num"><input type="number" id="i-loan" value="125" min="0" step="1"> 万</td>
+              <td class="num unit">625万×5年想定</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div class="phase-title">月次チャーン率（解約率）</div>
+        <table class="inputs">
+          <tbody>
+            <tr>
+              <td>AIスタッフ 1名（plan_single）</td>
+              <td class="num"><input type="number" id="i-churn-psingle" value="3" min="0" max="50" step="0.5"> %</td>
+              <td class="num unit">中小向け標準（業界3〜7%）</td>
+            </tr>
+            <tr>
+              <td>AIスタッフ 無制限（plan_flat）</td>
+              <td class="num"><input type="number" id="i-churn-pflat" value="3" min="0" max="50" step="0.5"> %</td>
+              <td class="num unit">中小向け標準</td>
+            </tr>
+            <tr>
+              <td>エンタープライズ標準（plan_ent）</td>
+              <td class="num"><input type="number" id="i-churn-pent" value="1" min="0" max="50" step="0.5"> %</td>
+              <td class="num unit">エンプラは低チャーン（0.5〜1%）</td>
+            </tr>
+            <tr>
+              <td>エンタープライズ独自サーバー（plan_ent_ded）</td>
+              <td class="num"><input type="number" id="i-churn-pent-ded" value="0.5" min="0" max="50" step="0.5"> %</td>
+              <td class="num unit">独自サーバー＝最低チャーン（0.5%目安）</td>
+            </tr>
+            <tr>
+              <td>V/ENTER 保守＋任意ロール1つ（enter）</td>
+              <td class="num"><input type="number" id="i-churn-enter" value="3" min="0" max="50" step="0.5"> %</td>
+              <td class="num unit">セット月3万</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- v12.2: 年間経費（固定費／変動費 明確分離） -->
+    <div class="panel">
+      <div class="panel-label">Operating Expenses (Fixed / Variable Split)</div>
+      <h3 class="panel-title">年間経費（固定費／変動費 分離・ベストプラクティス2026準拠）</h3>
+      <p class="panel-hint">SaaS急成長ベンチャー予実管理ベストプラクティスに準拠して、システム関連・契約ベースの<strong>固定費</strong>と、営業活動・成果連動の<strong>変動費</strong>を明確に分離。固定費＝月次の床／変動費＝売上連動でスケール／月次予実差異の見える化。</p>
+
+      <table class="inputs">
+        <thead>
+          <tr><th>項目</th><th style="text-align:right;">年間（万円）</th><th>備考</th></tr>
+        </thead>
+        <tbody>
+          <tr style="background:#0a0a0a;color:#fff;"><td colspan="3" style="font-family:Inter,sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:11px;padding:8px 10px;color:#fff;">★ 固定費（System &amp; Contract Base）— 売上ゼロでも発生する月次の床</td></tr>
+          <tr><td>家賃・オフィス費</td><td class="num"><input type="number" id="i-rent" value="0" min="0" step="10"></td><td class="num unit">自宅・コワーキング想定で0</td></tr>
+          <tr><td>光熱・通信費</td><td class="num"><input type="number" id="i-utility" value="0" min="0" step="5"></td><td class="num unit">電気・ガス・水道・通信</td></tr>
+          <tr><td>インフラ（お名前.com＋XServer） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-infra" value="7" min="0" step="1"></td><td class="num unit">月5,783円×12（繰り返し〇のみ）</td></tr>
+          <tr><td>API利用料（Claude Pro＋Max plan・Phase2 +2アカ追加） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-api-internal" value="80" min="0" step="1"></td><td class="num unit">v12.2.2: 既存43万＋Claude Max 2アカ 6ヶ月分37万=80万/年</td></tr>
+          <tr><td>SaaSツール（Slack＋GWS＋X Premium） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-saas" value="11" min="0" step="1"></td><td class="num unit">月9,383円×12（繰り返し〇のみ）</td></tr>
+          <tr><td>税理士・法務等外注（顧問税理士月2万＋既存）</td><td class="num"><input type="number" id="i-outsource" value="144" min="0" step="10"></td><td class="num unit">v12.2.2: 顧問税理士24万追加（120→144）</td></tr>
+          <tr><td>研修・書籍・セミナー</td><td class="num"><input type="number" id="i-training" value="5" min="0" step="5"></td><td class="num unit">社員教育</td></tr>
+          <tr><td>支払手数料・租税公課</td><td class="num"><input type="number" id="i-fees" value="60" min="0" step="5"></td><td class="num unit">銀行・印紙・事業税等</td></tr>
+          <tr><td>保険料（賠償責任等）</td><td class="num"><input type="number" id="i-insurance" value="30" min="0" step="5"></td><td class="num unit">PL保険等</td></tr>
+          <tr><td>消耗品・事務用品</td><td class="num"><input type="number" id="i-supplies" value="10" min="0" step="5"></td><td class="num unit">文具・備品</td></tr>
+          <tr><td>その他予備費</td><td class="num"><input type="number" id="i-reserve" value="100" min="0" step="10"></td><td class="num unit">想定外バッファ</td></tr>
+
+          <tr style="background:#fff3cd;color:#0a0a0a;"><td colspan="3" style="font-family:Inter,sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:11px;padding:8px 10px;">▲ 変動費（Sales &amp; Operations）— 営業活動・売上連動でスケール</td></tr>
+          <tr><td>広告・マーケ費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-ads" value="120" min="0" step="10"></td><td class="num unit">月10万ペース</td></tr>
+          <tr><td>接待交際費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-entertainment" value="168" min="0" step="10"></td><td class="num unit">月14万ペース</td></tr>
+          <tr><td>交通費・出張費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-travel" value="120" min="0" step="10"></td><td class="num unit">月10万ペース</td></tr>
+          <tr><td>採用費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-hiring" value="0" min="0" step="10"></td><td class="num unit">媒体・エージェント</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 試算内訳 -->
+<section class="section">
+  <div class="section-num">03</div>
+  <h2 class="section-title">試算内訳</h2>
+  <div class="section-sub">Calculation Breakdown</div>
+  <hr class="section-hr">
+
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-label">Revenue</div>
+      <h3 class="panel-title">売上（通期）</h3>
+      <table class="inputs">
+        <tbody id="rev-breakdown"></tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <div class="panel-label">Cost</div>
+      <h3 class="panel-title">コスト（通期）</h3>
+      <table class="inputs">
+        <tbody id="cost-breakdown"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ユニットエコノミクス -->
+<section class="section">
+  <div class="section-num">04</div>
+  <h2 class="section-title">ユニットエコノミクス</h2>
+  <div class="section-sub">Unit Economics · CAC / LTV / Payback</div>
+  <hr class="section-hr">
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">ARPU（平均客単価/月）</div>
+      <div class="kpi-value" id="ue-arpu">—</div>
+      <div class="kpi-note">期末MRR ÷ 期末契約社数</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">加重平均 月次チャーン</div>
+      <div class="kpi-value" id="ue-churn">—</div>
+      <div class="kpi-note">契約数で加重</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">平均継続月数</div>
+      <div class="kpi-value" id="ue-lifetime">—</div>
+      <div class="kpi-note">1 ÷ 月次チャーン率</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">粗利率（サブスク）</div>
+      <div class="kpi-value" id="ue-gm">—</div>
+      <div class="kpi-note">1 − API原価率</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">LTV</div>
+      <div class="kpi-value" id="ue-ltv">—</div>
+      <div class="kpi-note">ARPU × 粗利率 × 継続月数</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">CAC</div>
+      <div class="kpi-value" id="ue-cac">—</div>
+      <div class="kpi-note" id="ue-cac-note">S&M ÷ 年間Gross Adds</div>
+    </div>
+    <div class="kpi featured">
+      <div class="kpi-label">LTV / CAC</div>
+      <div class="kpi-value" id="ue-ltv-cac">—</div>
+      <div class="kpi-note">健全目標 3倍以上／優良 5倍以上</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Payback Period</div>
+      <div class="kpi-value" id="ue-payback">—</div>
+      <div class="kpi-note">CAC ÷ (ARPU×粗利率)／12ヶ月以内が健全</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>用語と考え方</strong>
+    <ul>
+      <li><strong>ARPU</strong>（Average Revenue Per User）＝ 期末サブスクMRR ÷ 期末総契約社数。顧客1社あたりの月次継続売上の平均。</li>
+      <li><strong>チャーン率</strong>＝解約率。B2B SaaS中小向け業界平均 月3〜7%、中堅 1〜2%、エンプラ 0.5〜1%。</li>
+      <li><strong>平均継続月数</strong>＝ 1 ÷ 月次チャーン率。例：月3%なら約33ヶ月（2.7年）継続する計算。</li>
+      <li><strong>LTV</strong>（Life Time Value）＝ 顧客1社が生涯もたらす粗利。ARPU × 粗利率 × 平均継続月数で算出。</li>
+      <li><strong>CAC</strong>（Customer Acquisition Cost）＝ 顧客獲得コスト。<strong>v12.2.2: S&Mコスト（広告＋採用＋Sales＋Marketing＋V/ENTER獲得実務 Staff1/2＋OneBe成功報酬）÷ 年間Gross Adds（純新規獲得＝期末累計＋年間解約数）</strong>。Customer-facing roles 全部含む業界標準計算（SaaS Capital基準）。期末累計（Net Adds）ではなく解約分も戻した実獲得数で割る。</li>
+      <li><strong>LTV / CAC 比</strong>：VC評価の最重要指標の一つ。<strong>3倍以上で健全</strong>、5倍以上で優良、10倍超だと「広告投下が足りない」サイン。</li>
+      <li><strong>Payback Period</strong>（回収期間）＝ CAC を何ヶ月で回収できるか。<strong>12ヶ月以内が健全</strong>、18ヶ月超は資金繰り要注意。</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- Phase移行ゲート -->
+<section class="section">
+  <div class="section-num">05</div>
+  <h2 class="section-title">段階スケーリング・Phase移行ゲート</h2>
+  <div class="section-sub">Phase Gates</div>
+  <hr class="section-hr">
+
+  <table class="inputs">
+    <thead>
+      <tr><th>移行先</th><th>契約社数条件</th><th>他の条件</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Phase 1.5</strong></td><td>10社 or CEO+CTOがCSで対応困難に</td><td>月次売上 100万超え</td></tr>
+      <tr><td><strong>Phase 2</strong></td><td>20社以上</td><td>スポット月5本以上・API追加率30%以上</td></tr>
+      <tr><td><strong>Phase 3</strong></td><td>50社以上</td><td>スポット月10本以上</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="section">
+  <div class="section-num">06</div>
+  <h2 class="section-title">リスクと対応ルール</h2>
+  <div class="section-sub">Risk &amp; Response</div>
+  <hr class="section-hr">
+
+  <ul>
+    <li><strong>契約社数伸び悩み</strong> ─ 月次純増5社未達が2ヶ月続いた時点で Phase 1.5 移行を保留、ドッグフーディング素材の社外発信を強化</li>
+    <li><strong>スポット受注不足</strong> ─ 基準月10本に対して5本未満なら、既存顧客への活用提案を V/AIBOU 自走プッシュに切り替え</li>
+    <li><strong>API原価 粗利50%ルール逸脱</strong> ─ 月次で粗利率監視、50%逸脱時は該当顧客のプランアップ提案 or 利用制限</li>
+    <li><strong>最低キャッシュ500万割れ</strong> ─ 採用凍結・外注費圧縮を即発動、ランウェイ6ヶ月確保を最優先</li>
+    <li><strong>絶対に守ること</strong> ─ CEO・CTOの報酬は最後まで削らない／Phase 3 に早期拡張しない</li>
+  </ul>
+</section>
+
+
+<!-- v12.2: SaaS KPI（ベストプラクティス2026） -->
+<section class="section">
+  <div class="section-num">07</div>
+  <h2 class="section-title">SaaS KPI（ベストプラクティス2026）</h2>
+  <div class="section-sub">Best-in-class metrics · Burn Multiple · Rule of 40 · Gross Margin · Runway · Magic Number · NRR</div>
+  <hr class="section-hr">
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">年間 固定費</div>
+      <div class="kpi-value" id="kpi-fixed">—</div>
+      <div class="kpi-note" id="kpi-fixed-note">社員給与＋システム＋借入返済</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">年間 変動費</div>
+      <div class="kpi-value" id="kpi-variable">—</div>
+      <div class="kpi-note" id="kpi-variable-note">アルバイト/委託＋API＋営業経費＋OneBe</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">変動費比率</div>
+      <div class="kpi-value" id="kpi-var-ratio">—</div>
+      <div class="kpi-note">変動費 ÷ 年間売上</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Gross Margin</div>
+      <div class="kpi-value" id="kpi-gm">—</div>
+      <div class="kpi-note">75%以上が健全帯</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">月次バーン</div>
+      <div class="kpi-value" id="kpi-burn">—</div>
+      <div class="kpi-note">通期赤字 ÷ 12ヶ月</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Runway（残存月数）</div>
+      <div class="kpi-value" id="kpi-runway">—</div>
+      <div class="kpi-note">12ヶ月以上が健全帯</div>
+    </div>
+    <div class="kpi featured">
+      <div class="kpi-label">Rule of 40</div>
+      <div class="kpi-value" id="kpi-rule40">—</div>
+      <div class="kpi-note">成長率% + 営業利益率%／40以上が目標（早期は&lt;40許容）</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Burn Multiple</div>
+      <div class="kpi-value" id="kpi-burn-multiple">—</div>
+      <div class="kpi-note">≤1.5が優秀（早期1.5-3.4許容・Series A標準）</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Magic Number</div>
+      <div class="kpi-value" id="kpi-magic">—</div>
+      <div class="kpi-note">年間サブスクMRR ÷ S&Mコスト／0.7以上が健全帯</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">NRR（推定）</div>
+      <div class="kpi-value" id="kpi-nrr">—</div>
+      <div class="kpi-note">(1−加重平均月次チャーン)^12／106%以上が健全帯（top 120%）</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>SaaS KPIベストプラクティス（2026年版）目標値</strong>
+    <ul>
+      <li><strong>Burn Multiple</strong> ≤1.5（Series A標準）／早期1.5-3.4許容（ARR&lt;5M USD なら成長重視）</li>
+      <li><strong>Rule of 40</strong> 成長率% + 利益率% ≥ 40（早期は&lt;40 OK・成長重視期はクリア不要）</li>
+      <li><strong>Gross Margin</strong> 75%以上（API原価最適化・Haiku活用＋キャッシュで粗利を守る）</li>
+      <li><strong>CAC Payback</strong> &lt;12ヶ月（best-in-class &lt;12ヶ月・B2B SaaS median 8.6ヶ月）</li>
+      <li><strong>LTV/CAC</strong> 3:1以上（理想4-6:1・Enterprise 4.5:1平均・SMB 2.5:1平均）</li>
+      <li><strong>NRR</strong> 106%以上（B2B SaaS top 120%+で valuation 2.3倍）</li>
+      <li><strong>Runway</strong> 12ヶ月以上（資金調達タイミング判断ライン）</li>
+      <li><strong>Magic Number</strong> 0.7以上（営業効率の標準指標）</li>
+    </ul>
+    <p style="margin-top:10px;font-size:11px;color:#888;">出典：SaaS Capital / The SaaS CFO / Wall Street Prep / Bookman Capital / Phoenix Strategy Group ほか 2026年ベンチマーク</p>
+  </div>
+</section>
+
+
+<!-- v12.2.2: 月次コスト構造 -->
+<section class="section">
+  <div class="section-num">08</div>
+  <h2 class="section-title">月次コスト構造（年÷12 平均・base想定）</h2>
+  <div class="section-sub">Monthly Cost Breakdown · Fixed × Variable</div>
+  <hr class="section-hr">
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">月次 売上</div><div class="kpi-value" id="m-rev">—</div><div class="kpi-note">年売上 ÷ 12</div></div>
+    <div class="kpi"><div class="kpi-label">月次 固定費</div><div class="kpi-value" id="m-fixed">—</div><div class="kpi-note">社員給与＋システム＋運営＋借入</div></div>
+    <div class="kpi"><div class="kpi-label">月次 変動費</div><div class="kpi-value" id="m-variable">—</div><div class="kpi-note">アルバイト/委託＋API＋OneBe＋営業経費</div></div>
+    <div class="kpi"><div class="kpi-label">月次 総コスト</div><div class="kpi-value" id="m-total-cost">—</div><div class="kpi-note">固定＋変動</div></div>
+    <div class="kpi featured"><div class="kpi-label">月次 純損益</div><div class="kpi-value" id="m-pl">—</div><div class="kpi-note">月次バーンの判定基準</div></div>
+  </div>
+
+  <table class="inputs">
+    <thead><tr><th>カテゴリ</th><th style="text-align:right;">月額（万円）</th></tr></thead>
+    <tbody>
+      <tr style="background:#0a0a0a;color:#fff;"><td colspan="2" style="font-weight:700;padding:6px 10px;color:#fff;">★ 固定費（売上ゼロでも発生）</td></tr>
+      <tr><td>社員給与（CEO/CTO/BO）</td><td class="num" id="mc-employee">—</td></tr>
+      <tr><td>システム（infra＋api-internal＋saas＋家賃＋光熱）</td><td class="num" id="mc-system">—</td></tr>
+      <tr><td>運営（外注税理士・保険・手数料・研修・消耗品・予備費）</td><td class="num" id="mc-ops">—</td></tr>
+      <tr><td>借入返済</td><td class="num" id="mc-loan">—</td></tr>
+      <tr style="background:#fff3cd;"><td colspan="2" style="font-weight:700;padding:6px 10px;">▲ 変動費（営業活動・売上連動）</td></tr>
+      <tr><td>アルバイト/業務委託（Staff1/2＋CS＋Sales＋Marketing＋eng_mid）</td><td class="num" id="mc-variable-hc">—</td></tr>
+      <tr><td>API原価（年MRR × API原価率）</td><td class="num" id="mc-api">—</td></tr>
+      <tr><td>OneBe レベニューシェア</td><td class="num" id="mc-onebe">—</td></tr>
+      <tr><td>社保（社員給与×15%）</td><td class="num" id="mc-social">—</td></tr>
+      <tr><td>営業経費（広告＋接待＋交通＋採用）</td><td class="num" id="mc-sales-exp">—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<!-- v12.2.2: 事業別 月次P/L -->
+<section class="section">
+  <div class="section-num">09</div>
+  <h2 class="section-title">事業別 月次P/L（base想定・直接粗利ベース）</h2>
+  <div class="section-sub">Per-Business Monthly P&amp;L · WEB事業 × V/AIBOU × 他</div>
+  <hr class="section-hr">
+
+  <table class="inputs">
+    <thead><tr><th>事業</th><th style="text-align:right;">月次売上</th><th style="text-align:right;">月次直接コスト</th><th style="text-align:right;">月次直接粗利</th></tr></thead>
+    <tbody>
+      <tr><td><strong>WEB事業（V/ENTER）</strong><br><span style="color:#888;font-size:11px;">L0 すべての源泉・直接コスト＝Staff1/2＋OneBe＋保守API原価</span></td><td class="num" id="biz-venter-rev">—</td><td class="num" id="biz-venter-cost">—</td><td class="num" id="biz-venter-gp">—</td></tr>
+      <tr><td><strong>V/AIBOU（plan_*＋API＋spot＋setup）</strong><br><span style="color:#888;font-size:11px;">L1-L5 サブスク＋アドオン・直接コスト＝API原価＋Sales人件費の半分</span></td><td class="num" id="biz-vaibou-rev">—</td><td class="num" id="biz-vaibou-cost">—</td><td class="num" id="biz-vaibou-gp">—</td></tr>
+      <tr><td><strong>他（ClaudeWorks）</strong><br><span style="color:#888;font-size:11px;">外部案件・粗利率70%仮置き</span></td><td class="num" id="biz-works-rev">—</td><td class="num" id="biz-works-cost">—</td><td class="num" id="biz-works-gp">—</td></tr>
+      <tr style="background:#fafafa;border-top:2px solid #0a0a0a;font-weight:700;"><td><strong>共通コスト（CEO/CTO/BO/CS/Marketing/システム/借入返済/その他）</strong><br><span style="color:#888;font-size:11px;font-weight:400;">事業間で按分しないコスト</span></td><td class="num">─</td><td class="num" id="biz-common-cost">—</td><td class="num">▲</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>事業別P/L の読み方</strong>
+    <ul>
+      <li><strong>WEB事業</strong>＝L0 V/ENTERの売上から、Staff1/2人件費・OneBe支払・保守分API原価を引いた直接粗利。</li>
+      <li><strong>V/AIBOU</strong>＝L1-L5 サブスク＋アドオン（plan_*+coach+api+spot+spot_3m+setup）の売上から、API原価とSales人件費の半分を引いた直接粗利。</li>
+      <li><strong>他（ClaudeWorks）</strong>＝外部案件。粗利率70%仮置き。</li>
+      <li><strong>共通コスト</strong>＝CEO/CTO/Backoffice/CS/Marketing/システム/借入返済/その他予備費 等、事業間で按分しないコスト。</li>
+      <li>各事業の直接粗利合計 ▲ 共通コスト ＝ 全社営業利益。</li>
+    </ul>
+  </div>
+</section>
+
+
+<!-- v12.2.8: 月次PL（Phase別・売上−人件費を月別追跡） -->
+<section class="section">
+  <div class="section-num">10</div>
+  <h2 class="section-title">★月次PL（売上−人件費を月別に追跡・Phase別人件費反映）</h2>
+  <div class="section-sub">Monthly P&amp;L · Track "Revenue − HC" by month · Phase 1 (4-9月) vs Phase 2 (10-3月)</div>
+  <hr class="section-hr">
+
+  <p style="font-size:13px;color:#555;margin-bottom:16px;line-height:1.7;">
+    <strong>頑張った人がちゃんとお金をもらうために、毎月「売上 − 人件費」を全員で見る</strong>。
+    その他費用（API・OneBe・社保・固定経費・借入）は月20万以下なので、★列がプラスなら基本的に黒字、マイナスなら赤字。
+    Phase 1（4-9月）と Phase 2（10-3月）で人件費が変わる（Phase 2 で eng_mid 業務委託＋Marketing 追加）ことに注意。
+  </p>
+
+  <table class="inputs">
+    <thead>
+      <tr>
+        <th>月 [Phase]</th>
+        <th style="text-align:right;">売上</th>
+        <th style="text-align:right;">人件費</th>
+        <th style="text-align:right;">★ 売上 − 人件費</th>
+        <th style="text-align:right;">その他費用</th>
+        <th style="text-align:right;">月次純損益</th>
+        <th style="text-align:right;">累積残高</th>
+      </tr>
+    </thead>
+    <tbody id="monthly-pl-tbody"></tbody>
+  </table>
+
+  <div class="callout">
+    <strong>月次PLの読み方</strong>
+    <ul>
+      <li><strong>売上</strong>＝ サブスク累計＋V/ENTER新規＋保守＋アドオン（その月の合計）</li>
+      <li><strong>人件費</strong>＝ Phase 1（4-9月）と Phase 2（10-3月）で組織体制が変わる。Phase 2 で eng_mid 業務委託＋marketing 追加で月+50万増</li>
+      <li><strong>★売上−人件費</strong>＝ 最重点指標。プラス＝人件費に対して売上を作れている／マイナス＝人件費が重すぎる</li>
+      <li><strong>その他費用</strong>＝ API原価＋OneBe＋社保＋変動経費＋固定経費＋借入返済（年÷12 平均）</li>
+      <li><strong>累積残高</strong>＝ 期首キャッシュ1,250万 + 月次純損益累計（worst発動ライン500万割れで採用凍結・外注圧縮）</li>
+    </ul>
+  </div>
+</section>
+
+
+<div class="footer">
+  <span>株式会社VAIZO · 1期目予算計画 v12.2.11 予算オープン化リライト</span>
+  <span>2026-05-04 01:12 更新</span>
+  <span>予算オープン化の記述を「還元×成長投資の両輪でミッションを世界に届ける」構造にリライト／10億・100億・1000億スケールへの再投資を明示</span>
+</div>
+
+</div>
+
+<!-- Review Export Modal -->
+<div class="modal-bg" id="rv-modal-bg">
+  <div class="modal">
+    <h3>レビュー まとめ</h3>
+    <p style="font-size:12px;color:#555;margin-bottom:10px;">コピーまたはダウンロードできます。</p>
+    <textarea id="rv-modal-text" readonly></textarea>
+    <div class="modal-actions">
+      <button class="rb-btn primary" id="rv-modal-copy">クリップボードへコピー</button>
+      <button class="rb-btn" id="rv-modal-download">.txtとしてダウンロード</button>
+      <button class="rb-btn" id="rv-modal-close">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'vaizo_v12_2_11_budget_review_v1';
+
+  // v12: 各セクションのレビュー初期値（コピペ用）
+  const SECTION_INITIAL_REVIEWS = {
+    '01': [
+      '【v12→v12.1 変更点】',
+      '・V/ENTER 月次新規 月3件 → 月4件 に上方修正（5月助走3件→6月以降月4件）',
+      '・base想定：年48件成約・新規売上1,440万・期末保守MRR約123万',
+      '・plan_ent/plan_ent_ded 期末計4社（v12と同じ：標準2＋独自2）',
+      '',
+      '【判断必要】',
+      '□ 5月助走3件・6月以降月4件のランプアップ：稼働時間総計377h/月で達成可能か',
+      '□ 商談40-60件/月→成約4件は成約率6.7-10%。OneBeデザイナー参画で品質UP前提',
+      '□ V/ENTER保守の累計が増えるとCS負担増。Phase1.5 移行検討タイミング'
+    ].join('\n'),
+    '02': [
+      '【v12.1 体制実態反映】',
+      '・Staff1 = 櫻井みどり（週40h・アルバイト時給1,200円・年250万）',
+      '・Staff2 = 小野寺陸斗（週15h・アルバイト時給1,200円・年94万）',
+      '・OneBe（外部パートナー・2名体制週32h）= レベニューシェア（人件費計上なし）',
+      '・Staff人件費 計344万/年（v12 base 240万から +104万）',
+      '',
+      '【判断必要】',
+      '□ アルバイト社保：櫻井みどり週40h＝社保対象（健保・厚年加入義務）／小野寺週15h＝対象外',
+      '　- 現状の social_pct=15% は櫻井みどりにのみ適用される設計でOKか',
+      '□ Phase2でミドルエンジニア外注（年360万）の必要性は実態と整合するか',
+      '□ 営業プロセスv1の正社員2枠（制作①／製造②）採用要件はv12.1体制と矛盾しないか'
+    ].join('\n'),
+    '03': [
+      '【v12.2.1 固定費実態反映（繰り返しサブスクのみ）】',
+      '・infra: 30→7万（お名前.com 31,644+XServer 37,752 = 69,396円/年）',
+      '・api-internal: 120→43万（Claude Pro 36,000+Max plan 396,000 = 432,000円/年）',
+      '・saas: 80→11万（X Premium 11,016+Slack 41,580+GWS 60,000 = 112,596円/年）',
+      '・固定費年▲169万圧縮 → 通期収支改善・Runway大幅延長',
+      '',
+      '【v12.1 新項目】',
+      '・OneBe レベニューシェア = V/ENTER新規売上 × 関与率（base 50%）× 50%支払',
+      '・base想定：年1,440万 × 50% × 50% = 360万/年がOneBeへ',
+      '',
+      '【継続】',
+      '・API原価率 40%（粗利50%ルール上限）',
+      '・社保 15%、借入返済 125万',
+      '',
+      '【判断必要】',
+      '□ OneBe関与率50%の精度：実態として全案件均等にOneBe参画か、案件選択型か',
+      '□ V/ENTER保守3万/月への配分：明示なし＝新規30万のみ50%支払で計算（保守はVAIZO収入）',
+      '□ エンプラ40万プラン：API原価上限20万＝粗利50%ライン。逸脱時の即対応ルール',
+      '□ Static Yield立替分（橋本72,092円＋老川132,000円・5月末期限）の予備費反映'
+    ].join('\n'),
+    '04': [
+      '【v12.1 base 想定値】',
+      '・期末MRR ≈ 448万・ARR ≈ 5,376万（v12 base 4,680万から +696万）',
+      '・LTV/CAC 約20倍（健全帯3倍以上は十分維持）',
+      '・Payback 約1.7-1.8ヶ月（健全帯12ヶ月以内を大幅クリア）',
+      '',
+      '【判断必要】',
+      '□ V/ENTER月4件達成でV/AIBOU保守接続が増える効果（plan_*へのアップセル可能性）',
+      '□ CAC計算にStaff1/2人件費を含めない理由（V/ENTER実務＝制作工数で営業ではないため）',
+      '□ Sales人件費240万＋広告120万＝360万に対するCAC効率（OneBe参画でCAC低下の可能性）'
+    ].join('\n'),
+    '05': [
+      '【v11継承（変更なし）】',
+      '・Phase 1.5: 10社 or CEO+CTOがCS対応困難 / 月次100万超',
+      '・Phase 2: 20社以上 / スポット5本/月',
+      '・Phase 3: 50社以上 / スポット10本/月',
+      '',
+      '【参考】',
+      '□ エンプラ標準＋独自合計4社到達がPhase1.5の早期トリガーになる可能性',
+      '□ V/ENTER保守累計が増えると月次100万超は早期到達する設計'
+    ].join('\n'),
+    '06': [
+      '【v12.1 追加】',
+      '・V/ENTER 月次新規 月2件未達が2ヶ月続いたらOneBe案件配分の見直し（関与率引き上げで補完）',
+      '・OneBe コミット50%継続条件：月次OKR招待・SO検討対象を維持（partnership条件）',
+      '・櫻井みどり 週40h稼働の安定確保（家庭事情等での変動時の代替プラン要）',
+      '',
+      '【v12 継続】',
+      '・エンプラ各社のAPI原価率を月次監視、50%逸脱時はプラン上げ提案 or 利用制限',
+      '・エンプラ40万プランは粗利50%ライン境界 → 即対応ルール',
+      '',
+      '【v11 継承】',
+      '・契約社数伸び悩み2ヶ月で Phase1.5 移行保留',
+      '・スポット受注不足5本未満で V/AIBOU自走プッシュ',
+      '・最低キャッシュ500万割れで採用凍結・外注費圧縮',
+      '・CEO・CTOの報酬は最後まで削らない／Phase 3 早期拡張しない'
+    ].join('\n'),
+    '07': [
+      '【v12.2 新規追加：SaaS KPI ベストプラクティス2026】',
+      '・年間 固定費／変動費／変動費比率（システム vs 営業経費の明確分離）',
+      '・Gross Margin（粗利率・75%以上が健全帯）',
+      '・月次バーン／Runway（資金枯渇までの月数・12ヶ月以上が健全帯）',
+      '・Rule of 40（成長率+営業利益率・40以上が目標、早期&lt;40許容）',
+      '・Burn Multiple（≤1.5が優秀、早期1.5-3.4許容）',
+      '・Magic Number（営業効率・0.7以上）',
+      '・NRR（既存売上拡大率・106%以上、top 120%でvaluation 2.3倍）',
+      '',
+      '【判断必要】',
+      '□ base想定でRule of 40 は何点に到達？1期目は<40でもOKだが目安として',
+      '□ Runway 12ヶ月以上維持できているか（worst発動時の死守ライン）',
+      '□ 変動費比率：base想定で何%？業界標準20-35%との比較',
+      '□ Gross Margin 75%維持にAPI原価率40%は妥当か（Haiku化で35%へ改善余地）',
+      '□ Magic Number/NRR を毎月レビュー指標として採用するか',
+      '',
+      '【月次レビュー運用提案】',
+      '・毎月初に前月実績を v12.2 HTML に入力',
+      '・KPI差異が出たら経営戦略室で要因分析',
+      '・3ヶ月毎にBenchmark見直し（業界水準と比較）',
+      '',
+      '【出典】',
+      'SaaS Capital / The SaaS CFO / Wall Street Prep / Bookman Capital / Phoenix Strategy Group ほか 2026年ベンチマーク'
+    ].join('\n')
+  };
+
+  function _escTA(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function ensureSectionReviews(){
+    document.querySelectorAll('section.section').forEach((sec, idx) => {
+      if(sec.querySelector(':scope > .review')) return;
+      const numEl = sec.querySelector('.section-num');
+      const titleEl = sec.querySelector('.section-title');
+      const num = numEl ? numEl.textContent.trim() : String(idx+1).padStart(2,'0');
+      const title = titleEl ? titleEl.textContent.trim() : 'Section ' + num;
+      const key = 'sec' + num;
+      const initial = SECTION_INITIAL_REVIEWS[num] || '';
+      const block = document.createElement('div');
+      block.className = 'review';
+      block.setAttribute('data-section', key);
+      block.setAttribute('data-title', title);
+      block.innerHTML =
+        '<div class="review-head">' +
+          '<span class="review-label">Section ' + num + ' · Review</span>' +
+          '<button class="verdict-btn" data-verdict="ok">OK</button>' +
+          '<button class="verdict-btn" data-verdict="fix">要修正</button>' +
+          '<button class="verdict-btn" data-verdict="ng">NG</button>' +
+          '<span class="review-state"></span>' +
+        '</div>' +
+        '<textarea placeholder="このセクションへのコメント…">' + _escTA(initial) + '</textarea>';
+      sec.appendChild(block);
+    });
+  }
+
+  function readStore(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch(e){ return {}; }
+  }
+  function writeStore(data){
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){}
+  }
+  function verdictLabel(v){
+    return v === 'ok' ? 'OK' : v === 'fix' ? '要修正' : v === 'ng' ? 'NG' : '未設定';
+  }
+
+  function updateCount(){
+    const data = readStore();
+    const secs = document.querySelectorAll('section.section .review');
+    let filled = 0;
+    secs.forEach(el => {
+      const key = el.getAttribute('data-section');
+      const rec = data[key];
+      if(rec && (rec.verdict || (rec.text && rec.text.trim()))) filled++;
+    });
+    const el = document.getElementById('rv-count');
+    if(el) el.textContent = filled + ' / ' + secs.length + ' セクション入力済';
+  }
+
+  function restoreReviews(){
+    const data = readStore();
+    document.querySelectorAll('.review').forEach(el => {
+      const key = el.getAttribute('data-section');
+      const rec = data[key] || {};
+      const ta = el.querySelector('textarea');
+      if(ta && rec.text) ta.value = rec.text;
+      el.querySelectorAll('.verdict-btn').forEach(b => b.classList.remove('active'));
+      if(rec.verdict){
+        const b = el.querySelector('.verdict-btn[data-verdict="'+rec.verdict+'"]');
+        if(b) b.classList.add('active');
+      }
+      const state = el.querySelector('.review-state');
+      if(state) state.textContent = rec.verdict ? verdictLabel(rec.verdict) : '';
+    });
+    updateCount();
+  }
+
+  function bindReviews(){
+    document.querySelectorAll('.review').forEach(el => {
+      const key = el.getAttribute('data-section');
+      const ta = el.querySelector('textarea');
+      const state = el.querySelector('.review-state');
+      if(ta){
+        ta.addEventListener('input', () => {
+          const data = readStore();
+          data[key] = data[key] || {};
+          data[key].text = ta.value;
+          data[key].title = el.getAttribute('data-title');
+          writeStore(data);
+          updateCount();
+        });
+      }
+      el.querySelectorAll('.verdict-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          const v = b.getAttribute('data-verdict');
+          const data = readStore();
+          data[key] = data[key] || {};
+          if(data[key].verdict === v){
+            delete data[key].verdict;
+            el.querySelectorAll('.verdict-btn').forEach(x => x.classList.remove('active'));
+            if(state) state.textContent = '';
+          } else {
+            data[key].verdict = v;
+            el.querySelectorAll('.verdict-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            if(state) state.textContent = verdictLabel(v);
+          }
+          data[key].title = el.getAttribute('data-title');
+          writeStore(data);
+          updateCount();
+        });
+      });
+    });
+  }
+
+  // v12: textarea の初期値も含めて読む（localStorage 未保存でも初期テキストを拾う）
+  function _readReview(el, key){
+    const data = readStore();
+    const rec = Object.assign({}, data[key] || {});
+    if(!rec.text){
+      const ta = el.querySelector('textarea');
+      if(ta && ta.value && ta.value.trim()){
+        rec.text = ta.value;
+      }
+    }
+    return rec;
+  }
+
+  function buildExportText(){
+    const lines = [];
+    const now = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    const ts = now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes());
+    lines.push('=== VAIZO 1期目予算 v12.2.11 予算オープン化リライト（還元×成長投資の両輪・2026-05-04 01:12更新）レビュー ===');
+    lines.push('出力日時: ' + ts);
+    lines.push('');
+
+    const overall = document.querySelector('.review[data-section="overall"]');
+    if(overall){
+      const rec = _readReview(overall, 'overall');
+      if(rec.verdict || (rec.text && rec.text.trim())){
+        lines.push('--- 全体コメント ---');
+        if(rec.verdict) lines.push('判定: ' + verdictLabel(rec.verdict));
+        if(rec.text && rec.text.trim()) lines.push(rec.text.trim());
+        lines.push('');
+      }
+    }
+
+    document.querySelectorAll('section.section .review').forEach(el => {
+      const key = el.getAttribute('data-section');
+      const title = el.getAttribute('data-title');
+      const rec = _readReview(el, key);
+      if(!rec.verdict && !(rec.text && rec.text.trim())) return;
+      lines.push('--- ' + title + ' ---');
+      if(rec.verdict) lines.push('判定: ' + verdictLabel(rec.verdict));
+      if(rec.text && rec.text.trim()) lines.push(rec.text.trim());
+      lines.push('');
+    });
+
+    if(lines.length === 3){
+      lines.push('(まだレビューが入力されていません)');
+    }
+    return lines.join('\n');
+  }
+
+  function openModal(){
+    document.getElementById('rv-modal-text').value = buildExportText();
+    document.getElementById('rv-modal-bg').classList.add('show');
+  }
+  function closeModal(){ document.getElementById('rv-modal-bg').classList.remove('show'); }
+
+  function copyToClipboard(text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(()=>{ alert('クリップボードへコピーしました'); })
+        .catch(()=>{ fallbackCopy(text); });
+    } else { fallbackCopy(text); }
+  }
+  function fallbackCopy(text){
+    const ta = document.getElementById('rv-modal-text');
+    ta.focus(); ta.select();
+    try { document.execCommand('copy'); alert('コピーしました'); }
+    catch(e){ alert('コピーに失敗。手動でCtrl+Cしてください。'); }
+  }
+
+  function downloadTxt(text){
+    const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const d = new Date();
+    const pad = n => String(n).padStart(2,'0');
+    const ts = d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'_'+pad(d.getHours())+pad(d.getMinutes());
+    a.href = url;
+    a.download = 'VAIZO_v12_2_11_budget_review_'+ts+'.txt';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
+  }
+
+  function bindToolbar(){
+    const btnExport = document.getElementById('btn-rv-export');
+    const btnClear  = document.getElementById('btn-rv-clear');
+    if(btnExport) btnExport.addEventListener('click', openModal);
+    if(btnClear) btnClear.addEventListener('click', () => {
+      if(!confirm('すべてのレビュー入力を消去します。よろしいですか？')) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+      document.querySelectorAll('.review textarea').forEach(t => t.value = '');
+      document.querySelectorAll('.verdict-btn.active').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.review-state').forEach(s => s.textContent = '');
+      updateCount();
+    });
+    document.getElementById('rv-modal-close').addEventListener('click', closeModal);
+    document.getElementById('rv-modal-bg').addEventListener('click', (e) => {
+      if(e.target.id === 'rv-modal-bg') closeModal();
+    });
+    document.getElementById('rv-modal-copy').addEventListener('click', () => {
+      copyToClipboard(document.getElementById('rv-modal-text').value);
+    });
+    document.getElementById('rv-modal-download').addEventListener('click', () => {
+      downloadTxt(document.getElementById('rv-modal-text').value);
+    });
+  }
+
+  function init(){
+    ensureSectionReviews();
+    bindReviews();
+    restoreReviews();
+    bindToolbar();
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<script>
+(function(){
+  const MONTHS = ['4月','5月','6月','7月','8月','9月','10月','11月','12月','1月','2月','3月'];
+  const MONTH_KEYS = ['m1','m2','m3','m4','m5','m6','m7','m8','m9','m10','m11','m12'];
+
+  // Revenue services
+  //   stock      : 期末時点の累計契約数（解約込み実数）× unit
+  //   stock_new  : その月の新規件数入力 × unit（一時売上）＋ 累計×attach_rev（月額継続）
+  //                累計にはチャーン率を適用して実数推移を計算
+  //   flow       : その月の件数 × unit
+  //   yen        : そのまま月次売上（万）
+  // v12.2: V/ENTER最上位（すべての源泉）→ V/AIBOU各層 → アドオン → 他事業 の順
+  const services = [
+    // L0 V/ENTER：新規件数×30万（単発）＋累計×3万（保守＋AI社員1ロール）→ V/AIBOU への入口
+    { key: 'enter',        name: 'L0 V/ENTER 新規件数（すべての源泉）',              unit: 30, type: 'stock_new', label: '件', attach_rev: 3, churn_key: 'enter' },
+    // L0.5 V/AIBOU Coach 無償トライアル（1週間・単価0円・件数追跡用KPI・営業活動量の指標）
+    { key: 'coach_trial',  name: 'L0.5 V/AIBOU Coach 無償トライアル（1週間・件数追跡）', unit: 0,  type: 'stock', label: '社' },
+    // L1 plan_single：V/ENTER保守からの自然移行 or 単独獲得
+    { key: 'plan_single',  name: 'L1 V/AIBOU AIスタッフ 1名',                        unit: 3,  type: 'stock', label: '社' },
+    // L2 plan_flat：plan_single からのアップグレード or V/ENTER顧客拡大
+    { key: 'plan_flat',    name: 'L2 V/AIBOU AIスタッフ 無制限',                     unit: 5,  type: 'stock', label: '社' },
+    // L2+ V/AIBOU Coach（教育・ワークショップ・plan_flatオプション・週90分・1-3名）
+    { key: 'coach',        name: 'L2+ V/AIBOU Coach（教育/ワークショップ・週90分）',  unit: 15, type: 'stock', label: '社' },
+    // L3 plan_ent：plan_flat からの深化＋Claude Code導入支援（API変動レンジ25/30/40万）
+    { key: 'plan_ent',     name: 'L3 V/AIBOU エンタープライズ標準（API変動25-40万）', unit: 30, type: 'stock', label: '社' },
+    // L4 plan_ent_ded：独自サーバー要望時のアップセル
+    { key: 'plan_ent_ded', name: 'L4 V/AIBOU エンタープライズ独自サーバー（50万〜）', unit: 50, type: 'stock', label: '社' },
+    // L5 spot/api/setup：既存顧客からの追加発注
+    { key: 'api',          name: 'L5 API追加チャージ',                               unit: 5,  type: 'flow',  label: '回' },
+    // v12.2.7: スポット案件を期間別に明示分離
+    { key: 'spot',         name: 'L5 業務自動化スポット 1ヶ月案件（25万/1セット）',     unit: 25, type: 'flow',  label: '件' },
+    { key: 'spot_3m',      name: 'L5 業務自動化スポット 3ヶ月案件（75万/1セット）',     unit: 75, type: 'flow',  label: '件' },
+    // v12.2.6: setup 旧「追加窓口5万」廃止 → 「Claude Code導入セットアップ30万」に再構成（環境構築+チーム招待+初期プロンプト+Coach連動）
+    { key: 'setup',        name: 'L5 Claude Code導入セットアップ（30万一時・Coach連動）', unit: 30, type: 'flow',  label: '件' },
+    // 他事業
+    { key: 'works',        name: '他 ClaudeWorks 案件',                              unit: 1,  type: 'yen',   label: '万' }
+  ];
+
+  // v12 base（料金v9反映・エンプラ標準+独自サーバー2階建て）：Sales 1名＋マーケPhase1吸収体制での獲得上限を反映
+  // LTV/CAC 業界健全帯（10〜20倍）、Payback 2〜3ヶ月に収束するラインに設定
+  const baseRev = {
+    coach_trial:  [0,0,1,2,4,6,6,8,8,10,10,12],      // v12.2.5: 無償トライアル累計獲得数 期末12社（KPI追跡用・売上0）→ 有料転換50%で coach 6社
+    plan_single:  [0,0,2,4,6,8,9,10,12,13,14,15],    // 独立獲得 期末15社（月平均新規1.5社）
+    plan_flat:    [0,0,2,4,7,10,12,14,16,18,19,20],  // 期末20社（主力プラン）
+    coach:        [0,0,0,1,2,3,3,4,4,5,5,6],         // v12.2.4: V/AIBOU Coach 期末6社×15万＝90万MRR（plan_flatアタッチ率30%・トライアル50%転換）
+    plan_ent:     [0,0,0,1,1,1,1,1,2,2,2,2],         // エンプラ標準 期末2社×30万＝60万MRR
+    plan_ent_ded: [0,0,0,0,0,0,0,0,1,1,1,1],         // v12.2.2: 3ヶ月後ろ倒し → 期末1社×50万＝50万MRR（1件目12月獲得）
+    api:          [0,0,0,0,0,0,1,1,1,2,2,2],         // v12.2.3: CSコンテンツ薄実態反映 → 年9回45万（旧55回275万・▲230万）
+    spot:         [0,0,0,0,1,0,1,0,1,0,1,0],         // v12.2.7: 1ヶ月案件25万 → base 年4件・100万一時収入（plan_*顧客の中で1-2件は依頼想定）
+    spot_3m:      [0,0,0,0,0,0,1,0,0,0,1,0],         // v12.2.7: 3ヶ月案件75万 → base 年2件・150万一時収入
+    setup:        [0,0,0,0,0,0,0,0,1,0,0,1],         // v12.2.6: Claude Code導入30万 → coach顧客の30%・年2件・60万一時収入
+    enter:        [0,3,4,4,4,4,4,4,4,4,4,4],          // V/ENTER月次新規件数（v12.1：5月助走3件→6月以降月4件目標・櫻井みどり+小野寺+OneBe体制）
+    works:        [0,5,10,15,20,20,20,20,20,20,20,20]
+  };
+  function scaleRev(arr, f){ return arr.map(x => Math.round(x * f)); }
+
+  const revPresets = {
+    // 【worst=最悪ケース】V/ENTER月1件30万しか決まらない前提で全導線が細る
+    // V/ENTER導線が機能しない → V/AIBOU接続も限定的 → V/SANBOエンプラ転換も遅延
+    // v12：独自サーバー希望のクライアント獲得は実質ゼロ
+    worst: {
+      coach_trial:  [0,0,0,1,1,2,2,3,3,4,4,4],     // v12.2.5: worst トライアル累計4社（KPI追跡）
+      plan_single:  [0,0,1,1,2,2,3,3,4,4,5,5],     // 保守客の約3割がAIスタッフ1名選択・期末5社×3=15万
+      plan_flat:    [0,0,1,2,3,4,5,6,7,8,9,10],    // 期末10社×5=50万（V/ENTER導線細いため）
+      coach:        [0,0,0,0,0,1,1,1,1,2,2,2],     // v12.2.4: Coach worst 期末2社×15＝30万（アタッチ率20%）
+      plan_ent:     [0,0,0,0,0,0,0,0,0,0,0,1],     // エンプラ標準 期末ギリギリ1社×30=30万
+      plan_ent_ded: [0,0,0,0,0,0,0,0,0,0,0,0],     // エンプラ独自サーバー 0社（V/ENTER細いため要望なし）
+      api:          [0,0,0,0,0,0,0,0,0,0,0,0],
+      spot:         [0,0,0,0,0,0,0,0,0,0,0,0],
+      spot_3m:      [0,0,0,0,0,0,0,0,0,0,0,0],
+      setup:        [0,0,0,0,0,0,0,0,0,0,0,0],
+      enter:        [0,1,1,1,1,1,1,1,1,1,1,1],        // V/ENTER月1件のみ
+      works:        [0,0,3,5,5,5,5,5,5,5,5,5]          // CEO/CTO集中で新規鈍化・月5万ベース
+    },
+    base: {
+      coach_trial:  baseRev.coach_trial.slice(),
+      plan_single:  baseRev.plan_single.slice(),
+      plan_flat:    baseRev.plan_flat.slice(),
+      coach:        baseRev.coach.slice(),
+      plan_ent:     baseRev.plan_ent.slice(),
+      plan_ent_ded: baseRev.plan_ent_ded.slice(),
+      api:          baseRev.api.slice(),
+      spot:         baseRev.spot.slice(),
+      spot_3m:      baseRev.spot_3m.slice(),
+      setup:        baseRev.setup.slice(),
+      enter:        baseRev.enter.slice(),
+      works:        baseRev.works.slice()
+    },
+    // 【best=積極調達シナリオ】VC/エンジェル向け。売上伸長を最優先
+    // 期末MRR ≈ 1,000万超（ARR 1.2億ペース）を狙う水準
+    best: {
+      coach_trial:  [0,0,4,10,20,30,40,50,55,60,62,62],  // v12.2.5: best トライアル累計62社（KPI追跡）
+      plan_single:  [0,1,3,6,11,17,24,32,40,46,50,54],   // 期末54社×3=162万
+      plan_flat:    [0,2,6,14,24,38,52,66,80,90,98,104], // 期末104社×5=520万
+      coach:        [0,0,2,5,10,15,20,24,27,29,30,31],   // v12.2.4: Coach best 期末31社×15＝465万MRR（plan_flatアタッチ率30%）
+      plan_ent:     [0,0,0,1,2,3,4,5,6,7,8,10],          // エンプラ標準 期末10社×30=300万
+      plan_ent_ded: [0,0,0,0,0,0,0,0,1,2,2,3],           // v12.2.2: 3ヶ月後ろ倒し → エンプラ独自 期末3社×50=150万（best）
+      api:          [0,0,1,3,6,9,12,16,20,23,26,29],   // v12.2.3: best も半減 → 年145回725万（旧290回1450万）
+      spot:         [0,0,1,2,2,2,2,2,2,2,2,1],           // v12.2.7: 1ヶ月案件 best 年20件×25=500万
+      spot_3m:      [0,0,0,1,1,1,0,1,1,0,0,1],           // v12.2.7: 3ヶ月案件 best 年6件×75=450万
+      setup:        [0,0,0,1,1,1,1,1,1,1,1,0],           // v12.2.6: Claude Code導入30万・best 年9件×30=270万一時収入
+      enter:        [1,3,5,6,7,8,9,10,11,12,13,14],      // V/ENTER新規件数（best：営業ファネル拡大）
+      works:        [0,10,20,30,45,55,65,75,85,95,110,125]
+    }
+  };
+
+  // v12.1: Staff1/2 をアルバイト体制実態に置き換え。年収=時給1,200円×週時間×52週で算出
+  // 櫻井みどり：1,200円×40h×52週 = 2,496,000円 ≒ 250万/年（約21万/月）
+  // 小野寺陸斗：1,200円×15h×52週 =   936,000円 ≒  94万/年（約8万/月）
+  // v12.2: cost_type を追加（fixed=社員給与・固定／variable=アルバイト/業務委託・変動）
+  const roles = [
+    { key: 'ceo',        name: 'CEO橋本',                                                        cost_type: 'fixed',    p1c: 1,   p1s: 110, p2c: 1,   p2s: 110 },
+    { key: 'cto',        name: 'CTO櫻井理也',                                                    cost_type: 'fixed',    p1c: 1,   p1s: 110, p2c: 1,   p2s: 110 },
+    { key: 'staff1',     name: 'Staff 1 櫻井みどり（V/ENTER 週40h・アルバイト時給1,200円）',     cost_type: 'variable', p1c: 1,   p1s: 250, p2c: 1,   p2s: 250 },
+    { key: 'staff2',     name: 'Staff 2 小野寺陸斗（V/ENTER 週15h・アルバイト時給1,200円）',     cost_type: 'variable', p1c: 1,   p1s: 94,  p2c: 1,   p2s: 94  },
+    { key: 'eng_sr',     name: 'シニアエンジニア（社員）',                                        cost_type: 'fixed',    p1c: 0,   p1s: 0,   p2c: 0,   p2s: 0   },
+    { key: 'eng_mid',    name: 'ミドルエンジニア（業務委託）',                                    cost_type: 'variable', p1c: 0,   p1s: 0,   p2c: 1,   p2s: 360 },
+    { key: 'cs',         name: 'カスタマーサクセス（業務委託）',                                  cost_type: 'variable', p1c: 1,   p1s: 240, p2c: 1,   p2s: 240 },
+    { key: 'sales',      name: 'セールス（業務委託）',                                            cost_type: 'variable', p1c: 1,   p1s: 240, p2c: 1,   p2s: 240 },
+    { key: 'marketing',  name: 'マーケ（業務委託・Phase2〜）',                                    cost_type: 'variable', p1c: 0,   p1s: 0,   p2c: 1,   p2s: 240 },
+    { key: 'backoffice', name: 'バックオフィス（パート・固定枠）',                                cost_type: 'fixed',    p1c: 0.5, p1s: 120, p2c: 0.5, p2s: 120 }
+  ];
+
+  // v12.1 base：staff1=櫻井みどり 250万・staff2=小野寺陸斗 94万（両方フルカウント1名）
+  const baseOrgP1 = { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[0,0], eng_mid:[0,0],   cs:[1,240], sales:[1,240], marketing:[0,0],   backoffice:[0.5,120] };
+  const baseOrgP2 = { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[0,0], eng_mid:[1,360], cs:[1,240], sales:[1,240], marketing:[1,240], backoffice:[0.5,120] };
+
+  const costPresets = {
+    // worst: V/ENTER月1件30万しか売れない想定。リスクルール「最低キャッシュ500万割れで採用凍結・外注費圧縮」発動版
+    // 期末キャッシュ≥625万（資本金分）確保を設計ターゲットに調整
+    worst: {
+      api_cost_pct: 40, social_pct: 15, unsee_pct: 0, onebe_pct: 30, loan: 125,
+      churn_psingle: 5, churn_pflat: 5, churn_pent: 2, churn_pent_ded: 1, churn_enter: 5,
+      rent: 0, utility: 0, infra: 24, api_internal: 40, saas: 48, ads: 30, entertainment: 40, travel: 24,
+      hiring: 0, outsource: 100, training: 0, fees: 40, insurance: 20, supplies: 5, reserve: 30,
+      // v12.1 worst：staff1/2は実体制（櫻井・小野寺）維持・マーケなし・BOパート最低稼働
+      phase1: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[0,0], eng_mid:[0,0], cs:[1,240], sales:[1,240], marketing:[0,0], backoffice:[0.5,120] },
+      // Phase2：売上伸びず → Salesロールオフ（リスクルール発動）、CS維持でplan_entトライアル対応のみ
+      phase2: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[0,0], eng_mid:[0,0], cs:[1,240], sales:[0,0],   marketing:[0,0], backoffice:[0.5,120] }
+    },
+    base: {
+      // v12.2.3: API原価率 40→35%（CSコンテンツ薄・ヘビーユーズしない前提・粗利改善+5pt）
+      api_cost_pct: 35, social_pct: 15, unsee_pct: 0, onebe_pct: 50, loan: 125,
+      churn_psingle: 3, churn_pflat: 3, churn_pent: 1, churn_pent_ded: 0.5, churn_enter: 3,
+      // v12.2.1: infra/api-internal/saas を繰り返し〇マークの月額サブスク実態に置き換え（▲169万）
+      // v12.2.2: api_internal 43→80（Phase2開始10月からClaude Max +2アカ・月66,000×6ヶ月=年40万追加）
+      // v12.2.2: outsource 120→144（顧問税理士 月2万×12=年24万追加）
+      rent: 0, utility: 0, infra: 7, api_internal: 80, saas: 11, ads: 120, entertainment: 168, travel: 120,
+      hiring: 0, outsource: 144, training: 5, fees: 60, insurance: 30, supplies: 10, reserve: 100,
+      phase1: baseOrgP1,
+      phase2: baseOrgP2
+    },
+    // 【best=積極調達シナリオ】売上伸長優先・採用/広告/マーケ積極投資・VC/エンジェル向け
+    best: {
+      // v12.2.3: API原価率 38→33%（best はさらに最適化想定）
+      api_cost_pct: 33, social_pct: 15, unsee_pct: 0, onebe_pct: 70, loan: 125,
+      churn_psingle: 2, churn_pflat: 2, churn_pent: 0.5, churn_pent_ded: 0.5, churn_enter: 2,
+      rent: 60, utility: 24, infra: 120, api_internal: 300, saas: 240, ads: 600, entertainment: 360, travel: 240,
+      hiring: 240, outsource: 180, training: 60, fees: 90, insurance: 60, supplies: 30, reserve: 240,
+      // v12.1 best：staff1/2はアルバイト枠キープしつつ、エンジニア・CS・Sales増員でPhase2拡張
+      phase1: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[1,900], eng_mid:[1,720], cs:[1,360], sales:[1,360], marketing:[0,0], backoffice:[0.5,120] },
+      phase2: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[2,900], eng_mid:[2,720], cs:[2,360], sales:[2,360], marketing:[1,420], backoffice:[1,120] }
+    }
+  };
+
+  const OPEN_CASH = 1250;
+  let _applying = false;
+
+  // Render revenue monthly matrix
+  function renderRevMatrix(){
+    const tbody = document.getElementById('rev-matrix');
+    if(!tbody) return;
+    tbody.innerHTML = '';
+
+    // v12.2.5: V/ENTER最上位 → Coach無償トライアル（KPI追跡） → V/AIBOU各層 → Coach有料 → アドオン → 他事業
+    const sections = [
+      { title: 'L0 V/ENTER ★すべての源泉（月次新規件数を入力・保守＋AI社員1ロールは自動追随）', filter: s => s.key === 'enter' },
+      { title: 'L0.5 V/AIBOU Coach 無償トライアル（1週間・単価0円・KPI追跡用・累計獲得数を入力）', filter: s => s.key === 'coach_trial' },
+      { title: 'L1-L4 V/AIBOU 月額サブスク（期末時点の契約社数・解約込み実数で入力）', filter: s => s.key.startsWith('plan_') },
+      { title: 'L2+ V/AIBOU Coach 有料転換（月15万・トライアル→有料50%転換想定）', filter: s => s.key === 'coach' },
+      { title: 'L5 アドオン（その月の件数を入力・既存顧客からの追加発注／spot=1ヶ月25万・spot_3m=3ヶ月75万・setup=Claude Code導入30万）', filter: s => ['api','spot','spot_3m','setup'].indexOf(s.key) >= 0 },
+      { title: '他 ClaudeWorks 等（月次売上を万円で入力）', filter: s => s.key === 'works' }
+    ];
+
+    sections.forEach(sec => {
+      tbody.insertAdjacentHTML('beforeend',
+        '<tr class="section-row"><td colspan="14">' + sec.title + '</td></tr>'
+      );
+      services.filter(sec.filter).forEach(s => {
+        let row = '<tr>';
+        let unitText;
+        if(s.type === 'yen') unitText = '(そのまま万円)';
+        else if(s.type === 'stock_new') unitText = s.unit + '万/' + s.label + '＋累計×' + s.attach_rev + '万(保守＋任意ロール1つ)';
+        else unitText = s.unit + '万/' + s.label;
+        row += '<td class="service">' + s.name + '<br><span class="unit-cell">' + unitText + '</span></td>';
+        for(let i = 0; i < 12; i++){
+          row += '<td><input type="number" id="i-' + s.key + '-m' + (i+1) + '" value="0" min="0" step="1"></td>';
+        }
+        row += '<td class="annual" id="o-annual-' + s.key + '">—</td>';
+        row += '</tr>';
+        tbody.insertAdjacentHTML('beforeend', row);
+      });
+    });
+
+    // Total row (monthly revenue in 万)
+    let totalRow = '<tr class="total-row"><td class="service" style="color:#fff;">月次売上合計</td>';
+    for(let i = 0; i < 12; i++){
+      totalRow += '<td id="o-monthly-' + (i+1) + '">—</td>';
+    }
+    totalRow += '<td class="annual" id="o-annual-total" style="color:#fff;background:#333;">—</td></tr>';
+    tbody.insertAdjacentHTML('beforeend', totalRow);
+  }
+
+  // Render org tables
+  function renderOrgTables(){
+    const p1 = document.getElementById('phase1-tbody');
+    const p2 = document.getElementById('phase2-tbody');
+    if(!p1 || !p2) return;
+    p1.innerHTML = '';
+    p2.innerHTML = '';
+    roles.forEach(r => {
+      p1.insertAdjacentHTML('beforeend',
+        '<tr><td>' + r.name + '</td>' +
+        '<td class="num"><input type="number" id="i-p1c-' + r.key + '" value="' + r.p1c + '" min="0" step="0.1"></td>' +
+        '<td class="num"><input type="number" id="i-p1s-' + r.key + '" value="' + r.p1s + '" min="0" step="10"></td>' +
+        '<td class="num" id="o-p1-' + r.key + '">—</td></tr>'
+      );
+      p2.insertAdjacentHTML('beforeend',
+        '<tr><td>' + r.name + '</td>' +
+        '<td class="num"><input type="number" id="i-p2c-' + r.key + '" value="' + r.p2c + '" min="0" step="0.1"></td>' +
+        '<td class="num"><input type="number" id="i-p2s-' + r.key + '" value="' + r.p2s + '" min="0" step="10"></td>' +
+        '<td class="num" id="o-p2-' + r.key + '">—</td></tr>'
+      );
+    });
+    p1.insertAdjacentHTML('beforeend',
+      '<tr style="background:#fafafa;border-top:2px solid #0a0a0a;font-weight:700;">' +
+      '<td colspan="3" style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;">Phase 1 半期コスト</td>' +
+      '<td class="num" id="o-p1-sum">—</td></tr>'
+    );
+    p2.insertAdjacentHTML('beforeend',
+      '<tr style="background:#fafafa;border-top:2px solid #0a0a0a;font-weight:700;">' +
+      '<td colspan="3" style="font-family:Inter,sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;">Phase 2 半期コスト</td>' +
+      '<td class="num" id="o-p2-sum">—</td></tr>'
+    );
+  }
+
+  function applyPreset(name){
+    const rev = revPresets[name];
+    const cost = costPresets[name];
+    if(!rev || !cost) return;
+    _applying = true;
+
+    // Revenue monthly values
+    services.forEach(s => {
+      for(let i = 0; i < 12; i++){
+        const el = document.getElementById('i-' + s.key + '-m' + (i+1));
+        if(el) el.value = rev[s.key][i];
+      }
+    });
+
+    // Cost inputs
+    ['api_cost_pct','social_pct','unsee_pct','onebe_pct','loan',
+     'rent','utility','infra','api_internal','saas','ads','entertainment','travel','hiring','outsource','training','fees','insurance','supplies','reserve',
+     'churn_psingle','churn_pflat','churn_pent','churn_pent_ded','churn_enter'
+    ].forEach(k => {
+      const el = document.getElementById('i-' + k.replace(/_/g,'-'));
+      if(el) el.value = cost[k];
+    });
+    roles.forEach(r => {
+      var e;
+      e = document.getElementById('i-p1c-'+r.key); if(e) e.value = cost.phase1[r.key][0];
+      e = document.getElementById('i-p1s-'+r.key); if(e) e.value = cost.phase1[r.key][1];
+      e = document.getElementById('i-p2c-'+r.key); if(e) e.value = cost.phase2[r.key][0];
+      e = document.getElementById('i-p2s-'+r.key); if(e) e.value = cost.phase2[r.key][1];
+    });
+
+    document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('active'));
+    const btn = document.querySelector('[data-preset="'+name+'"]');
+    if(btn) btn.classList.add('active');
+    _applying = false;
+    calc();
+  }
+
+  function v(id, d){
+    d = d || 0;
+    const el = document.getElementById(id);
+    if(!el) return d;
+    const n = parseFloat(el.value);
+    return isNaN(n) ? d : n;
+  }
+
+  function fm(x){
+    if(x === 0) return '0万';
+    const sign = x < 0 ? '▲' : '';
+    const abs = Math.abs(x);
+    if(abs >= 10000) return sign + (abs/10000).toFixed(2) + '億';
+    return sign + Math.round(abs).toLocaleString() + '万';
+  }
+
+  function flashKpi(){
+    document.querySelectorAll('.kpi').forEach(k => {
+      k.classList.add('flash');
+      setTimeout(() => k.classList.remove('flash'), 200);
+    });
+  }
+
+  function calc(){
+    const setText = (id, txt) => { const el = document.getElementById(id); if(el) el.textContent = txt; };
+
+    // V/ENTER: 累計保守客数（チャーン適用）を月次で計算
+    const entCumulative = Array(12).fill(0);
+    const churnEnter = v('i-churn-enter') / 100;
+    {
+      let prev = 0;
+      for(let i=0;i<12;i++){
+        const newI = v('i-enter-m'+(i+1));
+        prev = prev * (1 - churnEnter) + newI;
+        entCumulative[i] = prev;
+      }
+    }
+
+    // Compute monthly revenue per service
+    const monthlyRev = Array(12).fill(0); // 月別合計売上 (万円)
+    let mrr_end = 0; // 期末 MRR 部分
+    let addon_end = 0;
+    let other_end = 0;
+
+    services.forEach(s => {
+      let serviceAnnual = 0;
+      if(s.type === 'stock_new'){
+        // 新規件数×単価（一時）＋ 累計（チャーン適用）×attach_rev（月額）
+        for(let i = 0; i < 12; i++){
+          const newI = v('i-' + s.key + '-m' + (i+1));
+          const cumulative_i = entCumulative[i];
+          const revThisMonth = newI * s.unit + cumulative_i * s.attach_rev;
+          monthlyRev[i] += revThisMonth;
+          serviceAnnual += revThisMonth;
+        }
+      } else {
+        for(let i = 0; i < 12; i++){
+          const count = v('i-' + s.key + '-m' + (i+1));
+          const revThisMonth = s.type === 'yen' ? count : count * s.unit;
+          monthlyRev[i] += revThisMonth;
+          serviceAnnual += revThisMonth;
+        }
+      }
+      setText('o-annual-' + s.key, fm(serviceAnnual));
+    });
+
+    // Display monthly totals
+    for(let i = 0; i < 12; i++){
+      setText('o-monthly-' + (i+1), fm(monthlyRev[i]));
+    }
+
+    const annual_rev = monthlyRev.reduce((a,b) => a+b, 0);
+    setText('o-annual-total', fm(annual_rev));
+
+    // 期末月次売上 (month 12 = 3月)
+    const monthly_end = monthlyRev[11];
+
+    // 期末MRR / アドオン / その他
+    services.forEach(s => {
+      if(s.type === 'stock_new'){
+        // attach_rev分のみMRR（新規単発は除外）
+        mrr_end += entCumulative[11] * s.attach_rev;
+      } else {
+        const endCount = v('i-' + s.key + '-m12');
+        const endRev = s.type === 'yen' ? endCount : endCount * s.unit;
+        // v12.2.4: coach も月額サブスクとして mrr_end に含める
+        if(s.key.startsWith('plan_') || s.key === 'coach') mrr_end += endRev;
+        else if(['api','spot','setup'].indexOf(s.key) >= 0) addon_end += endRev;
+        else other_end += endRev;
+      }
+    });
+
+    // Annual MRR（継続課金の通期合計）: plan_*（期末累計入力＝解約込み実数と解釈）＋V/ENTER attach累計
+    let annual_mrr = 0;
+    services.filter(s => s.key.startsWith('plan_')).forEach(s => {
+      for(let i = 0; i < 12; i++){
+        annual_mrr += v('i-' + s.key + '-m' + (i+1)) * s.unit;
+      }
+    });
+    services.filter(s => s.type === 'stock_new').forEach(s => {
+      for(let i = 0; i < 12; i++){
+        annual_mrr += entCumulative[i] * s.attach_rev;
+      }
+    });
+
+    // Org costs（v12.2: fixed/variable 分離・cost_typeで分類）
+    let p1_sum = 0, p2_sum = 0;
+    let p1_employee = 0, p2_employee = 0;
+    let fixed_hc = 0, variable_hc = 0;
+    roles.forEach(r => {
+      const p1c = v('i-p1c-'+r.key);
+      const p1s = v('i-p1s-'+r.key);
+      const p2c = v('i-p2c-'+r.key);
+      const p2s = v('i-p2s-'+r.key);
+      const p1_half = (p1c * p1s) / 2;
+      const p2_half = (p2c * p2s) / 2;
+      setText('o-p1-'+r.key, fm(p1_half));
+      setText('o-p2-'+r.key, fm(p2_half));
+      p1_sum += p1_half;
+      p2_sum += p2_half;
+      if(r.key !== 'eng_mid'){
+        p1_employee += p1_half;
+        p2_employee += p2_half;
+      }
+      // v12.2: cost_type による固定/変動分離
+      if(r.cost_type === 'fixed'){
+        fixed_hc += p1_half + p2_half;
+      } else {
+        variable_hc += p1_half + p2_half;
+      }
+    });
+    setText('o-p1-sum', fm(p1_sum));
+    setText('o-p2-sum', fm(p2_sum));
+    const total_hc = p1_sum + p2_sum;
+    const total_employee = p1_employee + p2_employee;
+
+    const api_cost_pct = v('i-api-cost-pct') / 100;
+    const api_cost = annual_mrr * api_cost_pct;
+    const social_pct = v('i-social-pct') / 100;
+    const social_cost = total_employee * social_pct;
+    const loan = v('i-loan');
+    const unsee_pct = v('i-unsee-pct') / 100;
+    const unsee_fee = annual_mrr * unsee_pct;
+
+    // v12.1: OneBe レベニューシェア（V/ENTER 新規売上 × 関与率 × 50%支払）
+    let _enter_total_new = 0;
+    for(let i=0;i<12;i++) _enter_total_new += v('i-enter-m'+(i+1));
+    const enter_new_revenue = _enter_total_new * 30; // 万円（V/ENTER 新規単発のみ・保守は対象外）
+    const onebe_pct = v('i-onebe-pct') / 100;
+    const onebe_cost = enter_new_revenue * onebe_pct * 0.5;
+
+    const fixed_total = v('i-rent') + v('i-utility') + v('i-infra') + v('i-api-internal') + v('i-saas') + v('i-ads') +
+                        v('i-entertainment') + v('i-travel') + v('i-hiring') + v('i-outsource') +
+                        v('i-training') + v('i-fees') + v('i-insurance') + v('i-supplies') + v('i-reserve');
+
+    const annual_cost = total_hc + social_cost + api_cost + fixed_total + loan + unsee_fee + onebe_cost;
+    const annual_pl = annual_rev - annual_cost;
+    const end_cash = OPEN_CASH + annual_pl;
+
+    // KPI
+    setText('r-monthly-end', fm(monthly_end));
+    setText('r-monthly-end-note', 'MRR ' + fm(mrr_end) + ' + アドオン ' + fm(addon_end) + ' + 他 ' + fm(other_end));
+    setText('r-arr', fm(mrr_end * 12));
+    setText('r-annual-rev', fm(annual_rev));
+    setText('r-annual-cost', fm(annual_cost));
+    const plEl = document.getElementById('r-annual-pl');
+    if(plEl){
+      plEl.textContent = (annual_pl >= 0 ? '+' : '') + fm(annual_pl);
+      plEl.className = 'kpi-value ' + (annual_pl >= 0 ? 'pos' : 'neg');
+    }
+    setText('r-annual-pl-note', annual_pl >= 0 ? '黒字' : '赤字');
+    setText('r-end-cash', fm(end_cash));
+
+    // v12.2.8: 最重点指標「売上 − 人件費」（月次・通期）
+    const monthly_rev_avg_for_hc = annual_rev / 12;
+    const monthly_hc = total_hc / 12;
+    const monthly_rev_minus_hc = monthly_rev_avg_for_hc - monthly_hc;
+    const annual_rev_minus_hc = annual_rev - total_hc;
+    const mrhcEl = document.getElementById('r-monthly-rev-minus-hc');
+    if(mrhcEl){
+      mrhcEl.textContent = (monthly_rev_minus_hc >= 0 ? '+' : '') + fm(monthly_rev_minus_hc);
+      mrhcEl.className = 'kpi-ultra-value ' + (monthly_rev_minus_hc >= 0 ? 'pos' : 'neg');
+    }
+    const arhcEl = document.getElementById('r-annual-rev-minus-hc');
+    if(arhcEl){
+      arhcEl.textContent = (annual_rev_minus_hc >= 0 ? '+' : '') + fm(annual_rev_minus_hc);
+      arhcEl.className = 'kpi-ultra-value ' + (annual_rev_minus_hc >= 0 ? 'pos' : 'neg');
+    }
+
+    // Breakdown
+    const revEl = document.getElementById('rev-breakdown');
+    if(revEl){
+      revEl.innerHTML =
+        '<tr><td>月額 MRR（年間累計）</td><td class="num">' + fm(annual_mrr) + '</td></tr>' +
+        '<tr><td>アドオン＋他事業</td><td class="num">' + fm(annual_rev - annual_mrr) + '</td></tr>' +
+        '<tr style="background:#fafafa;border-top:2px solid #0a0a0a;font-weight:700;"><td>通期売上</td><td class="num">' + fm(annual_rev) + '</td></tr>';
+    }
+
+    const costEl = document.getElementById('cost-breakdown');
+    if(costEl){
+      costEl.innerHTML =
+        '<tr><td>Phase 1 人件費（6ヶ月）</td><td class="num">' + fm(p1_sum) + '</td></tr>' +
+        '<tr><td>Phase 2 人件費（6ヶ月）</td><td class="num">' + fm(p2_sum) + '</td></tr>' +
+        '<tr><td>社会保険（社員給与 ' + fm(total_employee) + ' × ' + (social_pct*100).toFixed(1) + '%）</td><td class="num">' + fm(social_cost) + '</td></tr>' +
+        '<tr><td>API原価（年間MRR × ' + Math.round(api_cost_pct*100) + '%）</td><td class="num">' + fm(api_cost) + '</td></tr>' +
+        '<tr><td>└ うちAPI利用料（社内検証・デモ等）</td><td class="num">' + fm(v('i-api-internal')) + '</td></tr>' +
+        '<tr><td>固定費（家賃・光熱・通信・広告・交際費＋API内部 合計）</td><td class="num">' + fm(fixed_total) + '</td></tr>' +
+        '<tr><td>Unsee紹介フィー（MRR × ' + (unsee_pct*100).toFixed(1) + '%）</td><td class="num">' + fm(unsee_fee) + '</td></tr>' +
+        '<tr><td>OneBe レベニューシェア（V/ENTER新規 ' + fm(enter_new_revenue) + ' × 関与率' + (onebe_pct*100).toFixed(0) + '% × 50%）</td><td class="num">' + fm(onebe_cost) + '</td></tr>' +
+        '<tr><td>借入返済</td><td class="num">' + fm(loan) + '</td></tr>' +
+        '<tr style="background:#fafafa;border-top:2px solid #0a0a0a;font-weight:700;"><td>通期コスト</td><td class="num">' + fm(annual_cost) + '</td></tr>';
+    }
+
+    // ===== ユニットエコノミクス計算 =====
+    // 期末契約社数（plan_* 期末累計 + V/ENTER累計保守客）
+    const end_c_psingle  = v('i-plan_single-m12');
+    const end_c_pflat    = v('i-plan_flat-m12');
+    const end_c_pent     = v('i-plan_ent-m12');
+    const end_c_pent_ded = v('i-plan_ent_ded-m12');
+    const end_c_enter    = entCumulative[11];
+    const end_contracts = end_c_psingle + end_c_pflat + end_c_pent + end_c_pent_ded + end_c_enter;
+
+    // ARPU = 期末MRR ÷ 期末契約数
+    const arpu = end_contracts > 0 ? mrr_end / end_contracts : 0;
+
+    // 加重平均月次チャーン
+    const ch_ps     = v('i-churn-psingle')  / 100;
+    const ch_pf     = v('i-churn-pflat')    / 100;
+    const ch_pe     = v('i-churn-pent')     / 100;
+    const ch_pe_ded = v('i-churn-pent-ded') / 100;
+    const ch_en     = v('i-churn-enter')    / 100;
+    const w_churn = end_contracts > 0
+      ? (ch_ps*end_c_psingle + ch_pf*end_c_pflat + ch_pe*end_c_pent + ch_pe_ded*end_c_pent_ded + ch_en*end_c_enter) / end_contracts
+      : 0;
+    const lifetime_months = w_churn > 0 ? 1 / w_churn : 0;
+
+    const gross_margin = 1 - api_cost_pct;
+    const ltv = arpu * gross_margin * lifetime_months;
+
+    // CAC 分子：S&M（Sales & Marketing）コスト ＝ 広告費 + 採用費 + Sales/Marketing通期人件費
+    // v12.2.2: V/ENTER獲得実務人件費（Staff1/2）＋OneBe成功報酬を S&M に含める（業界標準・customer-facing roles 全部含む）
+    const staff1_annual    = (v('i-p1c-staff1')    * v('i-p1s-staff1')    + v('i-p2c-staff1')    * v('i-p2s-staff1'))    / 2;
+    const staff2_annual    = (v('i-p1c-staff2')    * v('i-p1s-staff2')    + v('i-p2c-staff2')    * v('i-p2s-staff2'))    / 2;
+    const sales_annual     = (v('i-p1c-sales')     * v('i-p1s-sales')     + v('i-p2c-sales')     * v('i-p2s-sales'))     / 2;
+    const marketing_annual = (v('i-p1c-marketing') * v('i-p1s-marketing') + v('i-p2c-marketing') * v('i-p2s-marketing')) / 2;
+    const sm_cost = v('i-ads') + v('i-hiring') + sales_annual + marketing_annual + staff1_annual + staff2_annual + onebe_cost;
+
+    // CAC 分母：年間 Gross Adds（純新規獲得）＝ 期末累計 + 年間解約推定
+    // 年間解約推定 = 月次平均累計 × 月次チャーン率 × 12
+    let ps_avg = 0, pf_avg = 0, pe_avg = 0, pe_ded_avg = 0;
+    for(let i=0;i<12;i++){
+      ps_avg     += v('i-plan_single-m'+(i+1));
+      pf_avg     += v('i-plan_flat-m'+(i+1));
+      pe_avg     += v('i-plan_ent-m'+(i+1));
+      pe_ded_avg += v('i-plan_ent_ded-m'+(i+1));
+    }
+    ps_avg /= 12; pf_avg /= 12; pe_avg /= 12; pe_ded_avg /= 12;
+    const ps_churned     = ps_avg     * ch_ps     * 12;
+    const pf_churned     = pf_avg     * ch_pf     * 12;
+    const pe_churned     = pe_avg     * ch_pe     * 12;
+    const pe_ded_churned = pe_ded_avg * ch_pe_ded * 12;
+
+    let enter_total_new = 0;
+    for(let i=0;i<12;i++) enter_total_new += v('i-enter-m'+(i+1));
+
+    const gross_adds =
+      (end_c_psingle  + ps_churned) +
+      (end_c_pflat    + pf_churned) +
+      (end_c_pent     + pe_churned) +
+      (end_c_pent_ded + pe_ded_churned) +
+      enter_total_new; // V/ENTERは新規件数入力のため合計そのまま
+
+    const cac = gross_adds > 0 ? sm_cost / gross_adds : 0;
+
+    const ltv_cac = cac > 0 ? ltv / cac : 0;
+    const payback = (arpu * gross_margin) > 0 ? cac / (arpu * gross_margin) : 0;
+
+    setText('ue-arpu', fm(arpu));
+    setText('ue-churn', (w_churn*100).toFixed(1) + '%/月');
+    setText('ue-lifetime', lifetime_months > 0 ? lifetime_months.toFixed(1) + 'ヶ月' : '—');
+    setText('ue-gm', (gross_margin*100).toFixed(0) + '%');
+    setText('ue-ltv', fm(ltv));
+    setText('ue-cac', fm(cac));
+    setText('ue-cac-note', 'S&M ' + fm(sm_cost) + ' ÷ Gross Adds ' + gross_adds.toFixed(0) + '社');
+    const lcEl = document.getElementById('ue-ltv-cac');
+    if(lcEl){
+      lcEl.textContent = ltv_cac > 0 ? ltv_cac.toFixed(1) + '倍' : '—';
+      lcEl.className = 'kpi-value ' + (ltv_cac >= 3 ? 'pos' : ltv_cac >= 1 ? '' : 'neg');
+    }
+    setText('ue-payback', payback > 0 ? payback.toFixed(1) + 'ヶ月' : '—');
+
+    // ===== v12.2: SaaS KPI（ベストプラクティス2026） =====
+    // 固定費／変動費 分解
+    const FIXED_EXPENSE_IDS = ['i-rent','i-utility','i-infra','i-api-internal','i-saas','i-outsource','i-training','i-fees','i-insurance','i-supplies','i-reserve'];
+    const VARIABLE_EXPENSE_IDS = ['i-ads','i-entertainment','i-travel','i-hiring'];
+    let fixed_expense_total = 0;
+    FIXED_EXPENSE_IDS.forEach(id => fixed_expense_total += v(id));
+    let variable_expense_total = 0;
+    VARIABLE_EXPENSE_IDS.forEach(id => variable_expense_total += v(id));
+    // 固定費合計：固定人件費 + 固定経費 + 借入返済
+    const total_fixed_cost = fixed_hc + fixed_expense_total + loan;
+    // 変動費合計：変動人件費 + 社保 + API原価 + 変動経費 + Unsee + OneBe
+    const total_variable_cost = variable_hc + social_cost + api_cost + variable_expense_total + unsee_fee + onebe_cost;
+    const variable_ratio_pct = annual_rev > 0 ? total_variable_cost / annual_rev * 100 : 0;
+
+    // Burn Rate（月次バーン）／Runway
+    const monthly_burn = annual_pl < 0 ? -annual_pl / 12 : 0;
+    const runway_months = monthly_burn > 0 ? OPEN_CASH / monthly_burn : Infinity;
+
+    // Gross Margin（サブスク粗利率）
+    const gross_margin_pct = (1 - api_cost_pct) * 100;
+
+    // Rule of 40：成長率（4月→3月の月次売上）+ 営業利益率
+    const m1_rev_v = monthlyRev[0];
+    const m12_rev_v = monthlyRev[11];
+    const growth_rate_pct = m1_rev_v > 0 ? (m12_rev_v / m1_rev_v - 1) * 100 : (m12_rev_v > 0 ? 200 : 0);
+    const operating_margin_pct = annual_rev > 0 ? annual_pl / annual_rev * 100 : 0;
+    const rule_of_40 = growth_rate_pct + operating_margin_pct;
+
+    // Burn Multiple = Net Burn ÷ Net New ARR
+    const new_arr = mrr_end * 12;
+    const burn_multiple = (new_arr > 0 && annual_pl < 0) ? -annual_pl / new_arr : 0;
+
+    // Magic Number（簡易版）
+    const magic_number = sm_cost > 0 ? annual_mrr / sm_cost : 0;
+
+    // NRR（簡易推定）= (1 - 加重平均月次チャーン)^12 × 100
+    const nrr_proxy_pct = w_churn > 0 ? Math.pow(1 - w_churn, 12) * 100 : 100;
+
+    // 表示
+    setText('kpi-fixed', fm(total_fixed_cost));
+    setText('kpi-fixed-note', '人件費(社員) ' + fm(fixed_hc) + ' + 経費 ' + fm(fixed_expense_total) + ' + 借入 ' + fm(loan));
+    setText('kpi-variable', fm(total_variable_cost));
+    setText('kpi-variable-note', '人件費(変動) ' + fm(variable_hc) + ' + API ' + fm(api_cost) + ' + 営業 ' + fm(variable_expense_total) + ' + OneBe ' + fm(onebe_cost) + ' + 社保 ' + fm(social_cost));
+    setText('kpi-var-ratio', annual_rev > 0 ? variable_ratio_pct.toFixed(1) + '%' : '—');
+    setText('kpi-gm', gross_margin_pct.toFixed(0) + '%');
+    setText('kpi-burn', monthly_burn > 0 ? fm(monthly_burn) + '/月' : '黒字');
+    setText('kpi-runway', isFinite(runway_months) && runway_months > 0 ? runway_months.toFixed(1) + 'ヶ月' : '∞（黒字）');
+    const r40El = document.getElementById('kpi-rule40');
+    if(r40El){
+      r40El.textContent = rule_of_40.toFixed(1);
+      r40El.className = 'kpi-value ' + (rule_of_40 >= 40 ? 'pos' : rule_of_40 >= 20 ? '' : 'neg');
+    }
+    setText('kpi-burn-multiple', (annual_pl < 0 && burn_multiple > 0) ? burn_multiple.toFixed(2) + 'x' : '黒字');
+    setText('kpi-magic', magic_number.toFixed(2));
+    setText('kpi-nrr', nrr_proxy_pct.toFixed(0) + '%');
+
+    // ===== v12.2.2: 月次コスト構造（年÷12 平均） =====
+    const monthly_rev_avg = annual_rev / 12;
+    const monthly_fixed = total_fixed_cost / 12;
+    const monthly_variable = total_variable_cost / 12;
+    const monthly_total_cost = annual_cost / 12;
+    const monthly_pl = annual_pl / 12;
+    setText('m-rev', fm(monthly_rev_avg));
+    setText('m-fixed', fm(monthly_fixed));
+    setText('m-variable', fm(monthly_variable));
+    setText('m-total-cost', fm(monthly_total_cost));
+    const mplEl = document.getElementById('m-pl');
+    if(mplEl){
+      mplEl.textContent = (monthly_pl >= 0 ? '+' : '') + fm(monthly_pl);
+      mplEl.className = 'kpi-value ' + (monthly_pl >= 0 ? 'pos' : 'neg');
+    }
+    setText('mc-employee', fm(fixed_hc / 12));
+    setText('mc-system', fm((v('i-rent')+v('i-utility')+v('i-infra')+v('i-api-internal')+v('i-saas'))/12));
+    setText('mc-ops', fm((v('i-outsource')+v('i-training')+v('i-fees')+v('i-insurance')+v('i-supplies')+v('i-reserve'))/12));
+    setText('mc-loan', fm(loan/12));
+    setText('mc-variable-hc', fm(variable_hc/12));
+    setText('mc-api', fm(api_cost/12));
+    setText('mc-onebe', fm(onebe_cost/12));
+    setText('mc-social', fm(social_cost/12));
+    setText('mc-sales-exp', fm(variable_expense_total/12));
+
+    // ===== v12.2.2: 事業別 月次P/L =====
+    // WEB事業（V/ENTER）売上 = 新規 + 保守累計（自動追随）
+    let venter_rev = 0;
+    for(let i=0;i<12;i++){
+      const newI = v('i-enter-m'+(i+1));
+      venter_rev += newI * 30 + entCumulative[i] * 3;
+    }
+    // WEB事業 保守部分の年間収入
+    let venter_hozen_rev = 0;
+    for(let i=0;i<12;i++) venter_hozen_rev += entCumulative[i] * 3;
+    const venter_direct_cost = staff1_annual + staff2_annual + onebe_cost + venter_hozen_rev * api_cost_pct;
+    const venter_gp = venter_rev - venter_direct_cost;
+
+    // V/AIBOU（plan_*+coach+api+spot+setup）売上
+    let vaibou_rev = 0;
+    // v12.2.4: coach をV/AIBOU売上に含める
+    ['plan_single','plan_flat','coach','plan_ent','plan_ent_ded'].forEach(k => {
+      const s = services.find(x => x.key === k);
+      if(!s) return;
+      for(let i=0;i<12;i++) vaibou_rev += v('i-'+k+'-m'+(i+1)) * s.unit;
+    });
+    // v12.2.7: spot_3m もアドオン売上に含める
+    ['api','spot','spot_3m','setup'].forEach(k => {
+      const s = services.find(x => x.key === k);
+      if(!s) return;
+      for(let i=0;i<12;i++) vaibou_rev += v('i-'+k+'-m'+(i+1)) * s.unit;
+    });
+    // V/AIBOU API原価 = (annual_mrr − V/ENTER保守分) × api_cost_pct + sales人件費の半分（plan_ent商談分）
+    const vaibou_api_cost = (annual_mrr - venter_hozen_rev) * api_cost_pct;
+    const vaibou_direct_cost = vaibou_api_cost + sales_annual * 0.5;
+    const vaibou_gp = vaibou_rev - vaibou_direct_cost;
+
+    // 他（ClaudeWorks）売上
+    let works_rev = 0;
+    for(let i=0;i<12;i++) works_rev += v('i-works-m'+(i+1));
+    const works_direct_cost = works_rev * 0.3;
+    const works_gp = works_rev - works_direct_cost;
+
+    // 共通コスト = 全コスト − 各事業直接コスト
+    const common_cost = annual_cost - venter_direct_cost - vaibou_direct_cost - works_direct_cost;
+
+    setText('biz-venter-rev', fm(venter_rev/12));
+    setText('biz-venter-cost', fm(venter_direct_cost/12));
+    setText('biz-venter-gp', fm(venter_gp/12));
+    setText('biz-vaibou-rev', fm(vaibou_rev/12));
+    setText('biz-vaibou-cost', fm(vaibou_direct_cost/12));
+    setText('biz-vaibou-gp', fm(vaibou_gp/12));
+    setText('biz-works-rev', fm(works_rev/12));
+    setText('biz-works-cost', fm(works_direct_cost/12));
+    setText('biz-works-gp', fm(works_gp/12));
+    setText('biz-common-cost', fm(common_cost/12));
+
+    // ===== v12.2.8: 月次PL（Phase別人件費反映） =====
+    const pl_tbody = document.getElementById('monthly-pl-tbody');
+    if(pl_tbody){
+      pl_tbody.innerHTML = '';
+      const m_p1_hc = p1_sum / 6;     // Phase 1 半期÷6 = 月次人件費
+      const m_p2_hc = p2_sum / 6;     // Phase 2 半期÷6
+      const m_p1_social = (p1_employee * social_pct) / 6;
+      const m_p2_social = (p2_employee * social_pct) / 6;
+      // その他費用（年÷12 平均）= 全コスト − 人件費 − 社保
+      const other_annual = annual_cost - p1_sum - p2_sum - social_cost;
+      const other_monthly = other_annual / 12;
+      let cum = OPEN_CASH;
+      let totRev = 0, totHc = 0, totOther = 0;
+      for(let i=0;i<12;i++){
+        const m_rev = monthlyRev[i];
+        const m_hc = i<6 ? m_p1_hc : m_p2_hc;
+        const m_social = i<6 ? m_p1_social : m_p2_social;
+        const m_revMinusHc = m_rev - m_hc;
+        const m_other_total = other_monthly + m_social;
+        const m_pl = m_rev - m_hc - m_other_total;
+        cum += m_pl;
+        totRev += m_rev; totHc += m_hc; totOther += m_other_total;
+        const monthLabel = MONTHS[i];
+        const phaseTag = i<6 ? 'P1' : 'P2';
+        const cls_rmh = m_revMinusHc >= 0 ? 'pos' : 'neg';
+        const cls_pl  = m_pl >= 0 ? 'pos' : 'neg';
+        const cls_cum = cum >= 500 ? '' : 'neg'; // worst発動ライン500万
+        pl_tbody.insertAdjacentHTML('beforeend',
+          '<tr>' +
+          '<td>' + monthLabel + ' <span style="color:#888;font-size:10px;">[' + phaseTag + ']</span></td>' +
+          '<td class="num">' + fm(m_rev) + '</td>' +
+          '<td class="num">' + fm(m_hc) + '</td>' +
+          '<td class="num ' + cls_rmh + '">' + (m_revMinusHc >= 0 ? '+' : '') + fm(m_revMinusHc) + '</td>' +
+          '<td class="num">' + fm(m_other_total) + '</td>' +
+          '<td class="num ' + cls_pl + '">' + (m_pl >= 0 ? '+' : '') + fm(m_pl) + '</td>' +
+          '<td class="num ' + cls_cum + '">' + fm(cum) + '</td>' +
+          '</tr>'
+        );
+      }
+      // 通期合計
+      const tot_rmh = totRev - totHc;
+      const tot_pl = totRev - totHc - totOther;
+      pl_tbody.insertAdjacentHTML('beforeend',
+        '<tr style="background:#fafafa;border-top:2px solid #0a0a0a;font-weight:700;">' +
+        '<td><strong>通期合計</strong></td>' +
+        '<td class="num"><strong>' + fm(totRev) + '</strong></td>' +
+        '<td class="num"><strong>' + fm(totHc) + '</strong></td>' +
+        '<td class="num ' + (tot_rmh>=0?'pos':'neg') + '"><strong>' + (tot_rmh>=0?'+':'') + fm(tot_rmh) + '</strong></td>' +
+        '<td class="num"><strong>' + fm(totOther) + '</strong></td>' +
+        '<td class="num ' + (tot_pl>=0?'pos':'neg') + '"><strong>' + (tot_pl>=0?'+':'') + fm(tot_pl) + '</strong></td>' +
+        '<td class="num"><strong>' + fm(cum) + '</strong></td>' +
+        '</tr>'
+      );
+    }
+
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2,'0');
+    setText('last-update', 'recalculated ' + pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds()));
+    flashKpi();
+  }
+
+  // localStorage persistence — URLごとに別キー
+  const STORAGE_KEY = 'vaibou_budget_' + (location.pathname || 'default') + '_v12_2_11';
+  const PRESET_KEY  = STORAGE_KEY + '_preset';
+
+  function saveState(){
+    try {
+      const data = {};
+      document.querySelectorAll('input[type=number]').forEach(el => {
+        if(el.id) data[el.id] = el.value;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch(e){}
+  }
+
+  function loadState(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return false;
+      const data = JSON.parse(raw);
+      let restored = 0;
+      Object.keys(data).forEach(id => {
+        const el = document.getElementById(id);
+        if(el){ el.value = data[id]; restored++; }
+      });
+      return restored > 0;
+    } catch(e){ return false; }
+  }
+
+  function clearState(){
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(PRESET_KEY);
+    } catch(e){}
+  }
+
+  function bindEvents(){
+    document.querySelectorAll('[data-preset]').forEach(b => {
+      b.addEventListener('click', () => {
+        const p = b.getAttribute('data-preset');
+        if(p === 'custom') return;
+        applyPreset(p);
+        try { localStorage.setItem(PRESET_KEY, p); } catch(e){}
+        saveState();
+      });
+    });
+    document.addEventListener('input', (e) => {
+      if(e.target && e.target.matches && e.target.matches('input[type=number]')){
+        if(!_applying){
+          document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('active'));
+          const c = document.querySelector('[data-preset="custom"]');
+          if(c) c.classList.add('active');
+          try { localStorage.setItem(PRESET_KEY, 'custom'); } catch(e){}
+        }
+        calc();
+        saveState();
+      }
+    });
+    // Clear button (dynamically added)
+    const bar = document.querySelector('.preset-bar');
+    if(bar && !document.getElementById('btn-clear')){
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.id = 'btn-clear';
+      btn.textContent = '入力クリア';
+      btn.style.opacity = '.7';
+      btn.addEventListener('click', () => {
+        if(!confirm('入力値を全てクリアして基準ケースに戻します。よろしいですか？')) return;
+        clearState();
+        applyPreset('base');
+        saveState();
+      });
+      // Insert before the last update span
+      const lastUpd = document.getElementById('last-update');
+      if(lastUpd) bar.insertBefore(btn, lastUpd);
+      else bar.appendChild(btn);
+    }
+  }
+
+  function bindExportValues(){
+    const btn = document.getElementById('btn-export-values');
+    const bg = document.getElementById('val-modal-bg');
+    const ta = document.getElementById('val-modal-text');
+    const copyBtn = document.getElementById('val-modal-copy');
+    const closeBtn = document.getElementById('val-modal-close');
+    if(!btn) return;
+    btn.addEventListener('click', () => {
+      const revBlock = {};
+      services.forEach(s => {
+        revBlock[s.key] = [];
+        for(let i=0;i<12;i++){
+          revBlock[s.key].push(v('i-'+s.key+'-m'+(i+1)));
+        }
+      });
+      const orgP1 = {}, orgP2 = {};
+      roles.forEach(r => {
+        orgP1[r.key] = [v('i-p1c-'+r.key), v('i-p1s-'+r.key)];
+        orgP2[r.key] = [v('i-p2c-'+r.key), v('i-p2s-'+r.key)];
+      });
+      const costBlock = {
+        api_cost_pct: v('i-api-cost-pct'),
+        social_pct: v('i-social-pct'),
+        unsee_pct: v('i-unsee-pct'),
+        onebe_pct: v('i-onebe-pct'),
+        loan: v('i-loan'),
+        rent: v('i-rent'),
+        utility: v('i-utility'),
+        infra: v('i-infra'),
+        api_internal: v('i-api-internal'),
+        saas: v('i-saas'),
+        ads: v('i-ads'),
+        entertainment: v('i-entertainment'),
+        travel: v('i-travel'),
+        hiring: v('i-hiring'),
+        outsource: v('i-outsource'),
+        training: v('i-training'),
+        fees: v('i-fees'),
+        insurance: v('i-insurance'),
+        supplies: v('i-supplies'),
+        reserve: v('i-reserve')
+      };
+      const out = {
+        exported_at: new Date().toISOString(),
+        revenue_monthly: revBlock,
+        phase1: orgP1,
+        phase2: orgP2,
+        cost: costBlock
+      };
+      ta.value = JSON.stringify(out, null, 2);
+      bg.style.display = 'flex';
+    });
+    closeBtn.addEventListener('click', () => { bg.style.display = 'none'; });
+    bg.addEventListener('click', (e) => { if(e.target === bg) bg.style.display = 'none'; });
+    copyBtn.addEventListener('click', () => {
+      ta.focus(); ta.select();
+      try {
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(ta.value).then(()=>alert('コピーしました'));
+        } else {
+          document.execCommand('copy');
+          alert('コピーしました');
+        }
+      } catch(e){ alert('手動でCtrl+Cしてください'); }
+    });
+  }
+
+  function init(){
+    renderRevMatrix();
+    renderOrgTables();
+    bindEvents();
+    bindExportValues();
+    // Try to restore saved state first; otherwise apply base preset
+    const restored = loadState();
+    if(restored){
+      // Mark custom or saved preset button
+      let savedPreset = 'custom';
+      try { savedPreset = localStorage.getItem(PRESET_KEY) || 'custom'; } catch(e){}
+      document.querySelectorAll('[data-preset]').forEach(b => b.classList.remove('active'));
+      const btn = document.querySelector('[data-preset="'+savedPreset+'"]');
+      if(btn) btn.classList.add('active');
+      calc();
+    } else {
+      applyPreset('base');
+      saveState();
+    }
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
