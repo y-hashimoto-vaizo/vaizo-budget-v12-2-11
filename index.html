@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VAIZO 1期目予算計画 v12.2.11 — 予算オープン化リライト（還元×成長投資の両輪でミッションへ）2026-05-04 01:12更新</title>
+<title>VAIZO 1期目予算計画 v12.2.23 — 3シナリオ別 VC評価 テーブル表示（2026-05-04 16:46更新）</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -148,28 +148,23 @@
 </style>
 </head>
 <body>
-<!-- v12.2.11: パスワード認証（関係者向け簡易ガード・vaizo2026） -->
+<!-- パスワード認証（関係者向け簡易ガード・vaizo2026） -->
 <script>
 (function(){
   var CORRECT_PIN = 'vaizo2026';
-  var STORAGE_KEY = 'vaizo_v12_2_11_auth';
+  var STORAGE_KEY = 'vaizo_v12_budget_auth';
   if(sessionStorage.getItem(STORAGE_KEY) === 'authenticated') return;
   function checkPin(){
-    var pin = prompt('VAIZO 1期目予算 v12.2.11（関係者向け）\\n閲覧パスワードを入力してください:');
+    var pin = prompt('VAIZO 1期目予算 v12（関係者向け）\n閲覧パスワードを入力してください:');
     if(pin === null){
-      document.body.innerHTML = '<div style="padding:80px 40px;font-family:Inter,Noto Sans JP,sans-serif;text-align:center;color:#888;background:#0a0a0a;min-height:100vh;"><h1 style="color:#fff;font-size:18px;margin-bottom:16px;letter-spacing:.05em;">VAIZO 1期目予算 v12.2.11</h1><p style="font-size:13px;line-height:1.8;">認証がキャンセルされました。<br>ページを再読み込みすると、もう一度パスワードを入力できます。</p></div>';
+      document.body.innerHTML = '<div style="padding:80px 40px;font-family:Inter,Noto Sans JP,sans-serif;text-align:center;color:#888;background:#0a0a0a;min-height:100vh;"><h1 style="color:#fff;font-size:18px;margin-bottom:16px;letter-spacing:.05em;">VAIZO 1期目予算</h1><p style="font-size:13px;line-height:1.8;">認証がキャンセルされました。<br>ページを再読み込みすると、もう一度パスワードを入力できます。</p></div>';
       return false;
     }
-    if(pin === CORRECT_PIN){
-      sessionStorage.setItem(STORAGE_KEY, 'authenticated');
-      return true;
-    }
+    if(pin === CORRECT_PIN){ sessionStorage.setItem(STORAGE_KEY, 'authenticated'); return true; }
     alert('パスワードが違います。再度入力してください。');
     return checkPin();
   }
-  if(!checkPin()){
-    document.body.style.display = 'none';
-  }
+  if(!checkPin()){ document.body.style.display = 'none'; }
 })();
 </script>
 <div class="container">
@@ -351,6 +346,56 @@ v8料金体系のまま提出継続。書類書き換えなし。
   </div>
 </div>
 
+<!-- v12.2.23: 3シナリオ別 VAIZO 企業価値テーブル（worst/base/best 一覧で常時表示） -->
+<div style="margin:24px 0 32px;border:2px solid #0a0a0a;background:#fff;">
+  <div style="background:#0a0a0a;color:#fff;padding:14px 20px;font-family:'Inter',sans-serif;font-weight:700;font-size:12px;letter-spacing:.2em;text-transform:uppercase;">
+    ★ VAIZO 企業価値（VCバリュエーション）— 3シナリオ別 一覧
+  </div>
+  <table class="inputs" style="margin:0;">
+    <thead>
+      <tr>
+        <th style="text-align:left;">シナリオ</th>
+        <th style="text-align:right;">期末MRR</th>
+        <th style="text-align:right;">期末ARR</th>
+        <th style="text-align:right;">VC評価（×5倍・保守）</th>
+        <th style="text-align:right;">VC評価（×7倍・中庸）</th>
+        <th style="text-align:right;background:#1a7c2c;color:#fff;">VC評価（×10倍・top-tier AI）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>worst（最悪）</strong><br><span style="color:#888;font-size:11px;">会社が潰れない水準</span></td>
+        <td class="num" id="val-worst-mrr">—</td>
+        <td class="num" id="val-worst-arr">—</td>
+        <td class="num" id="val-worst-5x">—</td>
+        <td class="num" id="val-worst-7x">—</td>
+        <td class="num" id="val-worst-10x" style="background:#e8f5e8;">—</td>
+      </tr>
+      <tr>
+        <td><strong>base（基準）</strong><br><span style="color:#888;font-size:11px;">通期売上5,000万到達ライン</span></td>
+        <td class="num" id="val-base-mrr">—</td>
+        <td class="num" id="val-base-arr">—</td>
+        <td class="num" id="val-base-5x">—</td>
+        <td class="num" id="val-base-7x">—</td>
+        <td class="num" id="val-base-10x" style="background:#e8f5e8;">—</td>
+      </tr>
+      <tr style="background:#fffbea;">
+        <td><strong>best（計画通り）</strong><br><span style="color:#888;font-size:11px;">VC評価10億ライン狙い</span></td>
+        <td class="num" id="val-best-mrr">—</td>
+        <td class="num" id="val-best-arr">—</td>
+        <td class="num" id="val-best-5x">—</td>
+        <td class="num" id="val-best-7x">—</td>
+        <td class="num" id="val-best-10x" style="background:#1a7c2c;color:#fff;font-weight:900;">—</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="padding:14px 20px;font-size:11px;color:#555;line-height:1.7;border-top:1px solid #ccc;">
+    <strong>VC評価倍率の根拠（2026年AI企業ベンチマーク）：</strong>
+    ×5倍＝早期SaaS最低水準（成長率低・Rule of 40未達）／×7倍＝B2B SaaS中庸評価（Rule of 40 ≥20）／<strong style="color:#1a7c2c;">×10倍＝AI企業のtop評価（Rule of 40 ≥40 + NRR ≥110%）</strong>。
+    各シナリオの数字は revPresets/services 配列から自動計算。
+  </div>
+</div>
+
 <!-- KPI 結果 -->
 <div class="kpi-grid">
   <div class="kpi featured">
@@ -515,35 +560,35 @@ v8料金体系のまま提出継続。書類書き換えなし。
     </div>
 
 
-    <!-- v12.2: 年間経費（固定費／変動費 明確分離） -->
+    <!-- v12.2.15: 年間経費（月額入力 → ×12 = 年額 自動表示） -->
     <div class="panel">
-      <div class="panel-label">Operating Expenses (Fixed / Variable Split)</div>
-      <h3 class="panel-title">年間経費（固定費／変動費 分離・ベストプラクティス2026準拠）</h3>
-      <p class="panel-hint">SaaS急成長ベンチャー予実管理ベストプラクティスに準拠して、システム関連・契約ベースの<strong>固定費</strong>と、営業活動・成果連動の<strong>変動費</strong>を明確に分離。固定費＝月次の床／変動費＝売上連動でスケール／月次予実差異の見える化。</p>
+      <div class="panel-label">Operating Expenses (Monthly Input × 12 = Annual)</div>
+      <h3 class="panel-title">年間経費（月額入力 → ×12 = 年額／固定費・変動費 分離）</h3>
+      <p class="panel-hint">毎月固定でかかるお金を「<strong>月額</strong>」で入力 → 内部で自動的に「× 12 = 年額」に換算。月次定常コストを直感的に把握できる構造。固定費＝月次の床／変動費＝売上連動でスケール。</p>
 
       <table class="inputs">
         <thead>
-          <tr><th>項目</th><th style="text-align:right;">年間（万円）</th><th>備考</th></tr>
+          <tr><th>項目</th><th style="text-align:right;">月額（万円）</th><th>× 12 = 年額／備考</th></tr>
         </thead>
         <tbody>
           <tr style="background:#0a0a0a;color:#fff;"><td colspan="3" style="font-family:Inter,sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:11px;padding:8px 10px;color:#fff;">★ 固定費（System &amp; Contract Base）— 売上ゼロでも発生する月次の床</td></tr>
-          <tr><td>家賃・オフィス費</td><td class="num"><input type="number" id="i-rent" value="0" min="0" step="10"></td><td class="num unit">自宅・コワーキング想定で0</td></tr>
-          <tr><td>光熱・通信費</td><td class="num"><input type="number" id="i-utility" value="0" min="0" step="5"></td><td class="num unit">電気・ガス・水道・通信</td></tr>
-          <tr><td>インフラ（お名前.com＋XServer） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-infra" value="7" min="0" step="1"></td><td class="num unit">月5,783円×12（繰り返し〇のみ）</td></tr>
-          <tr><td>API利用料（Claude Pro＋Max plan・Phase2 +2アカ追加） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-api-internal" value="80" min="0" step="1"></td><td class="num unit">v12.2.2: 既存43万＋Claude Max 2アカ 6ヶ月分37万=80万/年</td></tr>
-          <tr><td>SaaSツール（Slack＋GWS＋X Premium） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-saas" value="11" min="0" step="1"></td><td class="num unit">月9,383円×12（繰り返し〇のみ）</td></tr>
-          <tr><td>税理士・法務等外注（顧問税理士月2万＋既存）</td><td class="num"><input type="number" id="i-outsource" value="144" min="0" step="10"></td><td class="num unit">v12.2.2: 顧問税理士24万追加（120→144）</td></tr>
-          <tr><td>研修・書籍・セミナー</td><td class="num"><input type="number" id="i-training" value="5" min="0" step="5"></td><td class="num unit">社員教育</td></tr>
-          <tr><td>支払手数料・租税公課</td><td class="num"><input type="number" id="i-fees" value="60" min="0" step="5"></td><td class="num unit">銀行・印紙・事業税等</td></tr>
-          <tr><td>保険料（賠償責任等）</td><td class="num"><input type="number" id="i-insurance" value="30" min="0" step="5"></td><td class="num unit">PL保険等</td></tr>
-          <tr><td>消耗品・事務用品</td><td class="num"><input type="number" id="i-supplies" value="10" min="0" step="5"></td><td class="num unit">文具・備品</td></tr>
-          <tr><td>その他予備費</td><td class="num"><input type="number" id="i-reserve" value="100" min="0" step="10"></td><td class="num unit">想定外バッファ</td></tr>
+          <tr><td>家賃・オフィス費</td><td class="num"><input type="number" id="i-rent" value="0" min="0" step="0.5"></td><td class="num unit">自宅・コワーキング想定で0／× 12 = 0万/年</td></tr>
+          <tr><td>光熱・通信費</td><td class="num"><input type="number" id="i-utility" value="0" min="0" step="0.5"></td><td class="num unit">電気・ガス・水道・通信／× 12 = 0万/年</td></tr>
+          <tr><td>インフラ（お名前.com＋XServer） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-infra" value="0.6" min="0" step="0.1"></td><td class="num unit">月5,783円／× 12 = 約7万/年</td></tr>
+          <tr><td>API利用料（Claude Pro＋Max plan＋Phase2 +2アカ） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-api-internal" value="6.7" min="0" step="0.1"></td><td class="num unit">既存3.6万＋Phase2 Claude Max 2アカ平均3.1万／× 12 = 80万/年</td></tr>
+          <tr><td>SaaSツール（Slack＋GWS＋X Premium） <span style="color:#888;">★システム実態</span></td><td class="num"><input type="number" id="i-saas" value="0.9" min="0" step="0.1"></td><td class="num unit">月9,383円／× 12 = 11万/年</td></tr>
+          <tr><td>税理士・法務等外注（顧問税理士＋既存）</td><td class="num"><input type="number" id="i-outsource" value="12" min="0" step="0.5"></td><td class="num unit">顧問税理士月2万＋他10万／× 12 = 144万/年</td></tr>
+          <tr><td>研修・書籍・セミナー</td><td class="num"><input type="number" id="i-training" value="0.4" min="0" step="0.1"></td><td class="num unit">社員教育／× 12 = 5万/年</td></tr>
+          <tr><td>支払手数料・租税公課</td><td class="num"><input type="number" id="i-fees" value="5" min="0" step="0.5"></td><td class="num unit">銀行・印紙・事業税等／× 12 = 60万/年</td></tr>
+          <tr><td>保険料（賠償責任等）</td><td class="num"><input type="number" id="i-insurance" value="2.5" min="0" step="0.5"></td><td class="num unit">PL保険等／× 12 = 30万/年</td></tr>
+          <tr><td>消耗品・事務用品</td><td class="num"><input type="number" id="i-supplies" value="0.8" min="0" step="0.1"></td><td class="num unit">文具・備品／× 12 = 約10万/年</td></tr>
+          <tr><td>その他予備費</td><td class="num"><input type="number" id="i-reserve" value="8.3" min="0" step="0.5"></td><td class="num unit">想定外バッファ／× 12 = 約100万/年</td></tr>
 
           <tr style="background:#fff3cd;color:#0a0a0a;"><td colspan="3" style="font-family:Inter,sans-serif;font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:11px;padding:8px 10px;">▲ 変動費（Sales &amp; Operations）— 営業活動・売上連動でスケール</td></tr>
-          <tr><td>広告・マーケ費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-ads" value="120" min="0" step="10"></td><td class="num unit">月10万ペース</td></tr>
-          <tr><td>接待交際費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-entertainment" value="168" min="0" step="10"></td><td class="num unit">月14万ペース</td></tr>
-          <tr><td>交通費・出張費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-travel" value="120" min="0" step="10"></td><td class="num unit">月10万ペース</td></tr>
-          <tr><td>採用費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-hiring" value="0" min="0" step="10"></td><td class="num unit">媒体・エージェント</td></tr>
+          <tr><td>広告・マーケ費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-ads" value="10" min="0" step="0.5"></td><td class="num unit">月10万ペース／× 12 = 120万/年</td></tr>
+          <tr><td>接待交際費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-entertainment" value="14" min="0" step="0.5"></td><td class="num unit">月14万ペース／× 12 = 168万/年</td></tr>
+          <tr><td>交通費・出張費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-travel" value="10" min="0" step="0.5"></td><td class="num unit">月10万ペース／× 12 = 120万/年</td></tr>
+          <tr><td>採用費 <span style="color:#888;">▲営業経費</span></td><td class="num"><input type="number" id="i-hiring" value="0" min="0" step="0.5"></td><td class="num unit">媒体・エージェント／× 12 = 0万/年</td></tr>
         </tbody>
       </table>
     </div>
@@ -863,9 +908,9 @@ v8料金体系のまま提出継続。書類書き換えなし。
 
 
 <div class="footer">
-  <span>株式会社VAIZO · 1期目予算計画 v12.2.11 予算オープン化リライト</span>
-  <span>2026-05-04 01:12 更新</span>
-  <span>予算オープン化の記述を「還元×成長投資の両輪でミッションを世界に届ける」構造にリライト／10億・100億・1000億スケールへの再投資を明示</span>
+  <span>株式会社VAIZO · 1期目予算計画 v12.2.23 3シナリオ別VC評価テーブル</span>
+  <span>2026-05-04 16:46 更新</span>
+  <span>worst/base/best 3シナリオ別の期末ARR＋VC評価（×5/×7/×10倍）を一覧テーブルで常時表示／preset切り替え不要で一目比較</span>
 </div>
 
 </div>
@@ -886,7 +931,7 @@ v8料金体系のまま提出継続。書類書き換えなし。
 
 <script>
 (function(){
-  const STORAGE_KEY = 'vaizo_v12_2_11_budget_review_v1';
+  const STORAGE_KEY = 'vaizo_v12_2_23_budget_review_v1';
 
   // v12: 各セクションのレビュー初期値（コピペ用）
   const SECTION_INITIAL_REVIEWS = {
@@ -1125,7 +1170,7 @@ v8料金体系のまま提出継続。書類書き換えなし。
     const now = new Date();
     const pad = n => String(n).padStart(2,'0');
     const ts = now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate())+' '+pad(now.getHours())+':'+pad(now.getMinutes());
-    lines.push('=== VAIZO 1期目予算 v12.2.11 予算オープン化リライト（還元×成長投資の両輪・2026-05-04 01:12更新）レビュー ===');
+    lines.push('=== VAIZO 1期目予算 v12.2.23 3シナリオ別VC評価テーブル（worst/base/best 一覧表示・2026-05-04 16:46更新）レビュー ===');
     lines.push('出力日時: ' + ts);
     lines.push('');
 
@@ -1184,7 +1229,7 @@ v8料金体系のまま提出継続。書類書き換えなし。
     const pad = n => String(n).padStart(2,'0');
     const ts = d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'_'+pad(d.getHours())+pad(d.getMinutes());
     a.href = url;
-    a.download = 'VAIZO_v12_2_11_budget_review_'+ts+'.txt';
+    a.download = 'VAIZO_v12_2_23_budget_review_'+ts+'.txt';
     document.body.appendChild(a);
     a.click();
     setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
@@ -1253,8 +1298,8 @@ v8料金体系のまま提出継続。書類書き換えなし。
     { key: 'plan_flat',    name: 'L2 V/AIBOU AIスタッフ 無制限',                     unit: 5,  type: 'stock', label: '社' },
     // L2+ V/AIBOU Coach（教育・ワークショップ・plan_flatオプション・週90分・1-3名）
     { key: 'coach',        name: 'L2+ V/AIBOU Coach（教育/ワークショップ・週90分）',  unit: 15, type: 'stock', label: '社' },
-    // L3 plan_ent：plan_flat からの深化＋Claude Code導入支援（API変動レンジ25/30/40万）
-    { key: 'plan_ent',     name: 'L3 V/AIBOU エンタープライズ標準（API変動25-40万）', unit: 30, type: 'stock', label: '社' },
+    // L3 plan_ent：plan_flat からの深化＋Claude Code導入支援（v12.2.20: 単価25万に固定）
+    { key: 'plan_ent',     name: 'L3 V/AIBOU エンタープライズ標準（25万）',           unit: 25, type: 'stock', label: '社' },
     // L4 plan_ent_ded：独自サーバー要望時のアップセル
     { key: 'plan_ent_ded', name: 'L4 V/AIBOU エンタープライズ独自サーバー（50万〜）', unit: 50, type: 'stock', label: '社' },
     // L5 spot/api/setup：既存顧客からの追加発注
@@ -1262,8 +1307,7 @@ v8料金体系のまま提出継続。書類書き換えなし。
     // v12.2.7: スポット案件を期間別に明示分離
     { key: 'spot',         name: 'L5 業務自動化スポット 1ヶ月案件（25万/1セット）',     unit: 25, type: 'flow',  label: '件' },
     { key: 'spot_3m',      name: 'L5 業務自動化スポット 3ヶ月案件（75万/1セット）',     unit: 75, type: 'flow',  label: '件' },
-    // v12.2.6: setup 旧「追加窓口5万」廃止 → 「Claude Code導入セットアップ30万」に再構成（環境構築+チーム招待+初期プロンプト+Coach連動）
-    { key: 'setup',        name: 'L5 Claude Code導入セットアップ（30万一時・Coach連動）', unit: 30, type: 'flow',  label: '件' },
+    // v12.2.20: setup（Claude Code導入セットアップ）は予算に書かない方針で削除
     // 他事業
     { key: 'works',        name: '他 ClaudeWorks 案件',                              unit: 1,  type: 'yen',   label: '万' }
   ];
@@ -1271,17 +1315,17 @@ v8料金体系のまま提出継続。書類書き換えなし。
   // v12 base（料金v9反映・エンプラ標準+独自サーバー2階建て）：Sales 1名＋マーケPhase1吸収体制での獲得上限を反映
   // LTV/CAC 業界健全帯（10〜20倍）、Payback 2〜3ヶ月に収束するラインに設定
   const baseRev = {
-    coach_trial:  [0,0,1,2,4,6,6,8,8,10,10,12],      // v12.2.5: 無償トライアル累計獲得数 期末12社（KPI追跡用・売上0）→ 有料転換50%で coach 6社
-    plan_single:  [0,0,2,4,6,8,9,10,12,13,14,15],    // 独立獲得 期末15社（月平均新規1.5社）
-    plan_flat:    [0,0,2,4,7,10,12,14,16,18,19,20],  // 期末20社（主力プラン）
-    coach:        [0,0,0,1,2,3,3,4,4,5,5,6],         // v12.2.4: V/AIBOU Coach 期末6社×15万＝90万MRR（plan_flatアタッチ率30%・トライアル50%転換）
-    plan_ent:     [0,0,0,1,1,1,1,1,2,2,2,2],         // エンプラ標準 期末2社×30万＝60万MRR
-    plan_ent_ded: [0,0,0,0,0,0,0,0,1,1,1,1],         // v12.2.2: 3ヶ月後ろ倒し → 期末1社×50万＝50万MRR（1件目12月獲得）
-    api:          [0,0,0,0,0,0,1,1,1,2,2,2],         // v12.2.3: CSコンテンツ薄実態反映 → 年9回45万（旧55回275万・▲230万）
-    spot:         [0,0,0,0,1,0,1,0,1,0,1,0],         // v12.2.7: 1ヶ月案件25万 → base 年4件・100万一時収入（plan_*顧客の中で1-2件は依頼想定）
-    spot_3m:      [0,0,0,0,0,0,1,0,0,0,1,0],         // v12.2.7: 3ヶ月案件75万 → base 年2件・150万一時収入
-    setup:        [0,0,0,0,0,0,0,0,1,0,0,1],         // v12.2.6: Claude Code導入30万 → coach顧客の30%・年2件・60万一時収入
-    enter:        [0,3,4,4,4,4,4,4,4,4,4,4],          // V/ENTER月次新規件数（v12.1：5月助走3件→6月以降月4件目標・櫻井みどり+小野寺+OneBe体制）
+    coach_trial:  [0,0,0,1,3,5,8,11,13,15,17,18],    // リサーチ反映で上方修正（期末18社・有料転換50%で9社）
+    plan_single:  [0,0,0,1,2,3,4,6,8,9,10,11],       // v12.2.17: 期末11社（V/ENTER成約客の中で追加AI社員契約者数として保守化・▲6社）
+    plan_flat:    [0,0,1,2,4,7,10,13,15,17,19,22],   // 期末22社（維持）
+    coach:        [0,0,0,0,1,2,4,5,7,9,10,12],       // v12.2.17: 期末12社（教育需要強・積極化・+2社）
+    plan_ent:     [0,0,0,0,0,1,1,1,1,1,1,1],         // v12.2.15: エンプラ標準 期末1社×30万＝30万MRR（実現性低・期末2→1社に保守化）
+    plan_ent_ded: [0,0,0,0,0,0,0,0,1,1,1,1],         // v12.2.20: エンプラ独自サーバー 期末1社（12月獲得・年内1件絶対達成目標）
+    api:          [0,0,0,0,0,0,0,0,1,1,1,1],         // v12.2.12: 年4回20万（D案・CSコンテンツ薄＋ヘビーユーザー少数派の現実反映）
+    spot:         [0,0,0,1,1,1,1,2,2,1,2,1],         // v12.2.18: ★調整弁 25万×年13件＝325万（works試算誤り訂正で5,000万到達のため+1件・8月にもう1件）
+    spot_3m:      [0,0,0,0,0,0,1,0,0,0,1,0],         // 3ヶ月案件75万 → base 年2件・150万
+    // v12.2.20: setup（Claude Code導入セットアップ）削除
+    enter:        [0,1,3,4,5,5,6,6,7,7,8,8],          // v12.2.16: 年60件（5月1・6月3・7月4・8月から本格化・後半6→7→8件）／OneBe体制でフル稼働・通期5,000万ぴったり到達
     works:        [0,5,10,15,20,20,20,20,20,20,20,20]
   };
   function scaleRev(arr, f){ return arr.map(x => Math.round(x * f)); }
@@ -1291,17 +1335,17 @@ v8料金体系のまま提出継続。書類書き換えなし。
     // V/ENTER導線が機能しない → V/AIBOU接続も限定的 → V/SANBOエンプラ転換も遅延
     // v12：独自サーバー希望のクライアント獲得は実質ゼロ
     worst: {
-      coach_trial:  [0,0,0,1,1,2,2,3,3,4,4,4],     // v12.2.5: worst トライアル累計4社（KPI追跡）
-      plan_single:  [0,0,1,1,2,2,3,3,4,4,5,5],     // 保守客の約3割がAIスタッフ1名選択・期末5社×3=15万
-      plan_flat:    [0,0,1,2,3,4,5,6,7,8,9,10],    // 期末10社×5=50万（V/ENTER導線細いため）
-      coach:        [0,0,0,0,0,1,1,1,1,2,2,2],     // v12.2.4: Coach worst 期末2社×15＝30万（アタッチ率20%）
-      plan_ent:     [0,0,0,0,0,0,0,0,0,0,0,1],     // エンプラ標準 期末ギリギリ1社×30=30万
-      plan_ent_ded: [0,0,0,0,0,0,0,0,0,0,0,0],     // エンプラ独自サーバー 0社（V/ENTER細いため要望なし）
-      api:          [0,0,0,0,0,0,0,0,0,0,0,0],
-      spot:         [0,0,0,0,0,0,0,0,0,0,0,0],
-      spot_3m:      [0,0,0,0,0,0,0,0,0,0,0,0],
-      setup:        [0,0,0,0,0,0,0,0,0,0,0,0],
-      enter:        [0,1,1,1,1,1,1,1,1,1,1,1],        // V/ENTER月1件のみ
+      // v12.2.21 worst：会社が潰れない水準（期末キャッシュ ≥ 500万維持）／V/ENTER 月2件まで・plan_*やや増・coach も少々
+      coach_trial:  [0,0,0,1,2,3,4,5,5,6,7,8],     // worst トライアル累計8社（KPI追跡・有料転換50%でcoach 4-3社）
+      plan_single:  [0,0,1,1,2,2,3,3,4,4,5,5],     // 期末5社×3=15万MRR（維持）
+      plan_flat:    [0,0,1,2,3,4,5,6,7,8,9,10],    // 期末10社×5=50万MRR（維持）
+      coach:        [0,0,0,0,0,1,1,1,2,2,3,3],     // 期末3社×15=45万（worst でも教育需要は出る）
+      plan_ent:     [0,0,0,0,0,0,0,0,0,0,0,1],     // エンプラ標準 期末ギリギリ1社×25=25万
+      plan_ent_ded: [0,0,0,0,0,0,0,0,0,0,0,0],     // エンプラ独自サーバー 0社（worst では獲得できず）
+      api:          [0,0,0,0,0,0,0,0,0,0,0,0],     // worst では0
+      spot:         [0,0,0,0,0,0,0,0,0,0,0,0],     // worst では0
+      spot_3m:      [0,0,0,0,0,0,0,0,0,0,0,0],     // worst では0
+      enter:        [0,1,2,2,2,2,2,2,2,2,2,2],        // V/ENTER 月2件（5月だけ1件・最低限の継続成約）= 21件
       works:        [0,0,3,5,5,5,5,5,5,5,5,5]          // CEO/CTO集中で新規鈍化・月5万ベース
     },
     base: {
@@ -1314,24 +1358,23 @@ v8料金体系のまま提出継続。書類書き換えなし。
       api:          baseRev.api.slice(),
       spot:         baseRev.spot.slice(),
       spot_3m:      baseRev.spot_3m.slice(),
-      setup:        baseRev.setup.slice(),
       enter:        baseRev.enter.slice(),
       works:        baseRev.works.slice()
     },
     // 【best=積極調達シナリオ】VC/エンジェル向け。売上伸長を最優先
     // 期末MRR ≈ 1,000万超（ARR 1.2億ペース）を狙う水準
     best: {
-      coach_trial:  [0,0,4,10,20,30,40,50,55,60,62,62],  // v12.2.5: best トライアル累計62社（KPI追跡）
-      plan_single:  [0,1,3,6,11,17,24,32,40,46,50,54],   // 期末54社×3=162万
-      plan_flat:    [0,2,6,14,24,38,52,66,80,90,98,104], // 期末104社×5=520万
-      coach:        [0,0,2,5,10,15,20,24,27,29,30,31],   // v12.2.4: Coach best 期末31社×15＝465万MRR（plan_flatアタッチ率30%）
-      plan_ent:     [0,0,0,1,2,3,4,5,6,7,8,10],          // エンプラ標準 期末10社×30=300万
-      plan_ent_ded: [0,0,0,0,0,0,0,0,1,2,2,3],           // v12.2.2: 3ヶ月後ろ倒し → エンプラ独自 期末3社×50=150万（best）
-      api:          [0,0,1,3,6,9,12,16,20,23,26,29],   // v12.2.3: best も半減 → 年145回725万（旧290回1450万）
-      spot:         [0,0,1,2,2,2,2,2,2,2,2,1],           // v12.2.7: 1ヶ月案件 best 年20件×25=500万
-      spot_3m:      [0,0,0,1,1,1,0,1,1,0,0,1],           // v12.2.7: 3ヶ月案件 best 年6件×75=450万
-      setup:        [0,0,0,1,1,1,1,1,1,1,1,0],           // v12.2.6: Claude Code導入30万・best 年9件×30=270万一時収入
-      enter:        [1,3,5,6,7,8,9,10,11,12,13,14],      // V/ENTER新規件数（best：営業ファネル拡大）
+      // v12.2.21 best：1年目終了時にVCから AI企業として10億円バリュエーション圏（期末ARR 1.5-2億・通期売上1億超）
+      coach_trial:  [0,0,3,8,15,25,35,45,52,55,58,60],   // 期末60社（転換50%でcoach 30社）
+      plan_single:  [0,1,2,5,8,12,16,20,24,27,29,32],    // 期末32社×3=96万
+      plan_flat:    [0,1,4,8,15,25,35,45,55,60,65,70],   // 期末70社×5=350万
+      coach:        [0,0,2,4,8,12,16,20,23,26,28,30],    // 期末30社×15=450万（高attach率実現）
+      plan_ent:     [0,0,0,1,2,3,3,4,4,5,5,6],           // エンプラ標準 期末6社×25=150万
+      plan_ent_ded: [0,0,0,0,0,0,0,0,1,2,2,3],           // エンプラ独自 期末3社×50=150万
+      api:          [0,0,1,2,4,6,8,10,12,15,18,20],      // 年96回×5=480万
+      spot:         [0,0,1,2,2,2,2,2,2,2,2,1],           // 1ヶ月案件 年20件×25=500万
+      spot_3m:      [0,0,0,1,1,1,0,1,1,0,0,1],           // 3ヶ月案件 年6件×75=450万
+      enter:        [0,2,4,5,6,7,8,9,10,11,12,12],       // V/ENTER 86件×30=2,580万（5月から徐々に立ち上げ・期末月12件）
       works:        [0,10,20,30,45,55,65,75,85,95,110,125]
     }
   };
@@ -1345,6 +1388,7 @@ v8料金体系のまま提出継続。書類書き換えなし。
     { key: 'cto',        name: 'CTO櫻井理也',                                                    cost_type: 'fixed',    p1c: 1,   p1s: 110, p2c: 1,   p2s: 110 },
     { key: 'staff1',     name: 'Staff 1 櫻井みどり（V/ENTER 週40h・アルバイト時給1,200円）',     cost_type: 'variable', p1c: 1,   p1s: 250, p2c: 1,   p2s: 250 },
     { key: 'staff2',     name: 'Staff 2 小野寺陸斗（V/ENTER 週15h・アルバイト時給1,200円）',     cost_type: 'variable', p1c: 1,   p1s: 94,  p2c: 1,   p2s: 94  },
+    { key: 'staff3',     name: 'Staff 3 アルバイト3人目（V/ENTER 週15h・アルバイト時給1,200円）', cost_type: 'variable', p1c: 1,   p1s: 94,  p2c: 1,   p2s: 94  },
     { key: 'eng_sr',     name: 'シニアエンジニア（社員）',                                        cost_type: 'fixed',    p1c: 0,   p1s: 0,   p2c: 0,   p2s: 0   },
     { key: 'eng_mid',    name: 'ミドルエンジニア（業務委託）',                                    cost_type: 'variable', p1c: 0,   p1s: 0,   p2c: 1,   p2s: 360 },
     { key: 'cs',         name: 'カスタマーサクセス（業務委託）',                                  cost_type: 'variable', p1c: 1,   p1s: 240, p2c: 1,   p2s: 240 },
@@ -1354,8 +1398,9 @@ v8料金体系のまま提出継続。書類書き換えなし。
   ];
 
   // v12.1 base：staff1=櫻井みどり 250万・staff2=小野寺陸斗 94万（両方フルカウント1名）
-  const baseOrgP1 = { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[0,0], eng_mid:[0,0],   cs:[1,240], sales:[1,240], marketing:[0,0],   backoffice:[0.5,120] };
-  const baseOrgP2 = { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[0,0], eng_mid:[1,360], cs:[1,240], sales:[1,240], marketing:[1,240], backoffice:[0.5,120] };
+  // v12.2.19: staff3 追加（小野寺と同条件のアルバイト・週15h・年94万）
+  const baseOrgP1 = { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], staff3:[1,94], eng_sr:[0,0], eng_mid:[0,0],   cs:[1,240], sales:[1,240], marketing:[0,0],   backoffice:[0.5,120] };
+  const baseOrgP2 = { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], staff3:[1,94], eng_sr:[0,0], eng_mid:[1,360], cs:[1,240], sales:[1,240], marketing:[1,240], backoffice:[0.5,120] };
 
   const costPresets = {
     // worst: V/ENTER月1件30万しか売れない想定。リスクルール「最低キャッシュ500万割れで採用凍結・外注費圧縮」発動版
@@ -1363,12 +1408,13 @@ v8料金体系のまま提出継続。書類書き換えなし。
     worst: {
       api_cost_pct: 40, social_pct: 15, unsee_pct: 0, onebe_pct: 30, loan: 125,
       churn_psingle: 5, churn_pflat: 5, churn_pent: 2, churn_pent_ded: 1, churn_enter: 5,
-      rent: 0, utility: 0, infra: 24, api_internal: 40, saas: 48, ads: 30, entertainment: 40, travel: 24,
-      hiring: 0, outsource: 100, training: 0, fees: 40, insurance: 20, supplies: 5, reserve: 30,
+      // v12.2.15: 月額入力に変更（×12=年額／旧worstの年額÷12 で換算）
+      rent: 0, utility: 0, infra: 2, api_internal: 3.3, saas: 4, ads: 2.5, entertainment: 3.3, travel: 2,
+      hiring: 0, outsource: 8.3, training: 0, fees: 3.3, insurance: 1.7, supplies: 0.4, reserve: 2.5,
       // v12.1 worst：staff1/2は実体制（櫻井・小野寺）維持・マーケなし・BOパート最低稼働
-      phase1: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[0,0], eng_mid:[0,0], cs:[1,240], sales:[1,240], marketing:[0,0], backoffice:[0.5,120] },
+      phase1: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], staff3:[1,94], eng_sr:[0,0], eng_mid:[0,0], cs:[1,240], sales:[1,240], marketing:[0,0], backoffice:[0.5,120] },
       // Phase2：売上伸びず → Salesロールオフ（リスクルール発動）、CS維持でplan_entトライアル対応のみ
-      phase2: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[0,0], eng_mid:[0,0], cs:[1,240], sales:[0,0],   marketing:[0,0], backoffice:[0.5,120] }
+      phase2: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], staff3:[1,94], eng_sr:[0,0], eng_mid:[0,0], cs:[1,240], sales:[0,0],   marketing:[0,0], backoffice:[0.5,120] }
     },
     base: {
       // v12.2.3: API原価率 40→35%（CSコンテンツ薄・ヘビーユーズしない前提・粗利改善+5pt）
@@ -1377,8 +1423,9 @@ v8料金体系のまま提出継続。書類書き換えなし。
       // v12.2.1: infra/api-internal/saas を繰り返し〇マークの月額サブスク実態に置き換え（▲169万）
       // v12.2.2: api_internal 43→80（Phase2開始10月からClaude Max +2アカ・月66,000×6ヶ月=年40万追加）
       // v12.2.2: outsource 120→144（顧問税理士 月2万×12=年24万追加）
-      rent: 0, utility: 0, infra: 7, api_internal: 80, saas: 11, ads: 120, entertainment: 168, travel: 120,
-      hiring: 0, outsource: 144, training: 5, fees: 60, insurance: 30, supplies: 10, reserve: 100,
+      // v12.2.15: 月額入力に変更（×12=年額／旧base年額÷12 で換算）
+      rent: 0, utility: 0, infra: 0.6, api_internal: 6.7, saas: 0.9, ads: 10, entertainment: 14, travel: 10,
+      hiring: 0, outsource: 12, training: 0.4, fees: 5, insurance: 2.5, supplies: 0.8, reserve: 8.3,
       phase1: baseOrgP1,
       phase2: baseOrgP2
     },
@@ -1387,11 +1434,12 @@ v8料金体系のまま提出継続。書類書き換えなし。
       // v12.2.3: API原価率 38→33%（best はさらに最適化想定）
       api_cost_pct: 33, social_pct: 15, unsee_pct: 0, onebe_pct: 70, loan: 125,
       churn_psingle: 2, churn_pflat: 2, churn_pent: 0.5, churn_pent_ded: 0.5, churn_enter: 2,
-      rent: 60, utility: 24, infra: 120, api_internal: 300, saas: 240, ads: 600, entertainment: 360, travel: 240,
-      hiring: 240, outsource: 180, training: 60, fees: 90, insurance: 60, supplies: 30, reserve: 240,
+      // v12.2.15: 月額入力に変更（×12=年額／旧best年額÷12 で換算）
+      rent: 5, utility: 2, infra: 10, api_internal: 25, saas: 20, ads: 50, entertainment: 30, travel: 20,
+      hiring: 20, outsource: 15, training: 5, fees: 7.5, insurance: 5, supplies: 2.5, reserve: 20,
       // v12.1 best：staff1/2はアルバイト枠キープしつつ、エンジニア・CS・Sales増員でPhase2拡張
-      phase1: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[1,900], eng_mid:[1,720], cs:[1,360], sales:[1,360], marketing:[0,0], backoffice:[0.5,120] },
-      phase2: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], eng_sr:[2,900], eng_mid:[2,720], cs:[2,360], sales:[2,360], marketing:[1,420], backoffice:[1,120] }
+      phase1: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], staff3:[1,94], eng_sr:[1,900], eng_mid:[1,720], cs:[1,360], sales:[1,360], marketing:[0,0], backoffice:[0.5,120] },
+      phase2: { ceo:[1,110], cto:[1,110], staff1:[1,250], staff2:[1,94], staff3:[1,94], eng_sr:[2,900], eng_mid:[2,720], cs:[2,360], sales:[2,360], marketing:[1,420], backoffice:[1,120] }
     }
   };
 
@@ -1410,7 +1458,7 @@ v8料金体系のまま提出継続。書類書き換えなし。
       { title: 'L0.5 V/AIBOU Coach 無償トライアル（1週間・単価0円・KPI追跡用・累計獲得数を入力）', filter: s => s.key === 'coach_trial' },
       { title: 'L1-L4 V/AIBOU 月額サブスク（期末時点の契約社数・解約込み実数で入力）', filter: s => s.key.startsWith('plan_') },
       { title: 'L2+ V/AIBOU Coach 有料転換（月15万・トライアル→有料50%転換想定）', filter: s => s.key === 'coach' },
-      { title: 'L5 アドオン（その月の件数を入力・既存顧客からの追加発注／spot=1ヶ月25万・spot_3m=3ヶ月75万・setup=Claude Code導入30万）', filter: s => ['api','spot','spot_3m','setup'].indexOf(s.key) >= 0 },
+      { title: 'L5 アドオン（その月の件数を入力・既存顧客からの追加発注／spot=1ヶ月25万・spot_3m=3ヶ月75万）', filter: s => ['api','spot','spot_3m'].indexOf(s.key) >= 0 },
       { title: '他 ClaudeWorks 等（月次売上を万円で入力）', filter: s => s.key === 'works' }
     ];
 
@@ -1495,6 +1543,7 @@ v8料金体系のまま提出継続。書類書き換えなし。
      'rent','utility','infra','api_internal','saas','ads','entertainment','travel','hiring','outsource','training','fees','insurance','supplies','reserve',
      'churn_psingle','churn_pflat','churn_pent','churn_pent_ded','churn_enter'
     ].forEach(k => {
+      // v12.2.19: cost preset key の処理（既存ロジックそのまま・staff3 含める対応はrolesループで自動処理される）
       const el = document.getElementById('i-' + k.replace(/_/g,'-'));
       if(el) el.value = cost[k];
     });
@@ -1664,9 +1713,11 @@ v8料金体系のまま提出継続。書類書き換えなし。
     const onebe_pct = v('i-onebe-pct') / 100;
     const onebe_cost = enter_new_revenue * onebe_pct * 0.5;
 
-    const fixed_total = v('i-rent') + v('i-utility') + v('i-infra') + v('i-api-internal') + v('i-saas') + v('i-ads') +
+    // v12.2.15: 月額入力 × 12 = 年額（経費15項目の月額合計を年額に換算）
+    const monthly_expense_total = v('i-rent') + v('i-utility') + v('i-infra') + v('i-api-internal') + v('i-saas') + v('i-ads') +
                         v('i-entertainment') + v('i-travel') + v('i-hiring') + v('i-outsource') +
                         v('i-training') + v('i-fees') + v('i-insurance') + v('i-supplies') + v('i-reserve');
+    const fixed_total = monthly_expense_total * 12;
 
     const annual_cost = total_hc + social_cost + api_cost + fixed_total + loan + unsee_fee + onebe_cost;
     const annual_pl = annual_rev - annual_cost;
@@ -1808,10 +1859,13 @@ v8料金体系のまま提出継続。書類書き換えなし。
     // 固定費／変動費 分解
     const FIXED_EXPENSE_IDS = ['i-rent','i-utility','i-infra','i-api-internal','i-saas','i-outsource','i-training','i-fees','i-insurance','i-supplies','i-reserve'];
     const VARIABLE_EXPENSE_IDS = ['i-ads','i-entertainment','i-travel','i-hiring'];
-    let fixed_expense_total = 0;
-    FIXED_EXPENSE_IDS.forEach(id => fixed_expense_total += v(id));
-    let variable_expense_total = 0;
-    VARIABLE_EXPENSE_IDS.forEach(id => variable_expense_total += v(id));
+    // v12.2.15: 月額入力なので合計×12=年額
+    let fixed_expense_monthly = 0;
+    FIXED_EXPENSE_IDS.forEach(id => fixed_expense_monthly += v(id));
+    let variable_expense_monthly = 0;
+    VARIABLE_EXPENSE_IDS.forEach(id => variable_expense_monthly += v(id));
+    const fixed_expense_total = fixed_expense_monthly * 12;
+    const variable_expense_total = variable_expense_monthly * 12;
     // 固定費合計：固定人件費 + 固定経費 + 借入返済
     const total_fixed_cost = fixed_hc + fixed_expense_total + loan;
     // 変動費合計：変動人件費 + 社保 + API原価 + 変動経費 + Unsee + OneBe
@@ -1860,6 +1914,38 @@ v8料金体系のまま提出継続。書類書き換えなし。
     setText('kpi-magic', magic_number.toFixed(2));
     setText('kpi-nrr', nrr_proxy_pct.toFixed(0) + '%');
 
+    // v12.2.23: 3シナリオ別 VAIZO 企業価値（preset の数字から自動計算・一覧表示）
+    function calcScenarioEndMRR(rev, costPreset){
+      let scn_mrr = 0;
+      // plan系（stock）
+      ['plan_single','plan_flat','coach','plan_ent','plan_ent_ded'].forEach(k => {
+        const s = services.find(x => x.key === k);
+        if(s && rev[k]) scn_mrr += rev[k][11] * s.unit;
+      });
+      // V/ENTER 保守（stock_new）累計をチャーン適用で計算
+      const churn_e = (costPreset.churn_enter || 0) / 100;
+      let prev = 0;
+      if(rev.enter){
+        for(let i=0;i<12;i++) prev = prev * (1 - churn_e) + rev.enter[i];
+      }
+      const entSrv = services.find(x => x.key === 'enter');
+      if(entSrv) scn_mrr += prev * entSrv.attach_rev;
+      return scn_mrr;
+    }
+    const SCN_KEYS = ['worst','base','best'];
+    SCN_KEYS.forEach(scn => {
+      const rev = revPresets[scn];
+      const cp = costPresets[scn];
+      if(!rev || !cp) return;
+      const scn_mrr = calcScenarioEndMRR(rev, cp);
+      const scn_arr = scn_mrr * 12;
+      setText('val-'+scn+'-mrr', fm(scn_mrr));
+      setText('val-'+scn+'-arr', fm(scn_arr));
+      setText('val-'+scn+'-5x',  fm(scn_arr * 5));
+      setText('val-'+scn+'-7x',  fm(scn_arr * 7));
+      setText('val-'+scn+'-10x', fm(scn_arr * 10));
+    });
+
     // ===== v12.2.2: 月次コスト構造（年÷12 平均） =====
     const monthly_rev_avg = annual_rev / 12;
     const monthly_fixed = total_fixed_cost / 12;
@@ -1876,14 +1962,15 @@ v8料金体系のまま提出継続。書類書き換えなし。
       mplEl.className = 'kpi-value ' + (monthly_pl >= 0 ? 'pos' : 'neg');
     }
     setText('mc-employee', fm(fixed_hc / 12));
-    setText('mc-system', fm((v('i-rent')+v('i-utility')+v('i-infra')+v('i-api-internal')+v('i-saas'))/12));
-    setText('mc-ops', fm((v('i-outsource')+v('i-training')+v('i-fees')+v('i-insurance')+v('i-supplies')+v('i-reserve'))/12));
+    // v12.2.15: 経費入力が月額になったので、月次表示は /12 不要（入力そのものが月額）
+    setText('mc-system', fm(v('i-rent')+v('i-utility')+v('i-infra')+v('i-api-internal')+v('i-saas')));
+    setText('mc-ops', fm(v('i-outsource')+v('i-training')+v('i-fees')+v('i-insurance')+v('i-supplies')+v('i-reserve')));
     setText('mc-loan', fm(loan/12));
     setText('mc-variable-hc', fm(variable_hc/12));
     setText('mc-api', fm(api_cost/12));
     setText('mc-onebe', fm(onebe_cost/12));
     setText('mc-social', fm(social_cost/12));
-    setText('mc-sales-exp', fm(variable_expense_total/12));
+    setText('mc-sales-exp', fm(v('i-ads')+v('i-entertainment')+v('i-travel')+v('i-hiring')));
 
     // ===== v12.2.2: 事業別 月次P/L =====
     // WEB事業（V/ENTER）売上 = 新規 + 保守累計（自動追随）
@@ -1906,8 +1993,8 @@ v8料金体系のまま提出継続。書類書き換えなし。
       if(!s) return;
       for(let i=0;i<12;i++) vaibou_rev += v('i-'+k+'-m'+(i+1)) * s.unit;
     });
-    // v12.2.7: spot_3m もアドオン売上に含める
-    ['api','spot','spot_3m','setup'].forEach(k => {
+    // v12.2.20: spot_3m もアドオン売上に含める（setup削除）
+    ['api','spot','spot_3m'].forEach(k => {
       const s = services.find(x => x.key === k);
       if(!s) return;
       for(let i=0;i<12;i++) vaibou_rev += v('i-'+k+'-m'+(i+1)) * s.unit;
@@ -1999,7 +2086,7 @@ v8料金体系のまま提出継続。書類書き換えなし。
   }
 
   // localStorage persistence — URLごとに別キー
-  const STORAGE_KEY = 'vaibou_budget_' + (location.pathname || 'default') + '_v12_2_11';
+  const STORAGE_KEY = 'vaibou_budget_' + (location.pathname || 'default') + '_v12_2_23';
   const PRESET_KEY  = STORAGE_KEY + '_preset';
 
   function saveState(){
